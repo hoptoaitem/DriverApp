@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         int viewId = view.getId();
 
         if (viewId == R.id.buttonLogin) {
+//            startActivity(new Intent(this, DashActivity.class));
             startActivity(new Intent(this, AvailableOrderActivity.class));
         }
     }

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/background_card"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:orientation="vertical">
+
+        <!--ORDER ID-->
+        <LinearLayout
+            android:id="@+id/linearLayoutStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                style="@style/poppins_regular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayoutText"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:text="Order Id "
+                android:textSize="12sp" />
+
+
+            <TextView
+                style="@style/poppins_regular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayoutText"
+                android:layout_marginStart="6dp"
+                android:layout_weight="3"
+
+                android:includeFontPadding="false"
+                android:text="5412"
+                android:textColor="@color/textHeadingColor"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!--DATE-->
+        <LinearLayout
+            android:id="@+id/linearLayoutDate"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                style="@style/poppins_regular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayoutText"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:text="Date "
+                android:textSize="12sp" />
+
+
+            <TextView
+                style="@style/poppins_regular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayoutText"
+                android:layout_marginStart="6dp"
+                android:layout_weight="3"
+
+                android:includeFontPadding="false"
+                android:text="11/11/2020"
+                android:textColor="@color/textHeadingColor"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
