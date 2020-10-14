@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:paddingBottom="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/background_card">
+
+        <!-- ORDER ID-->
+        <LinearLayout
+            android:id="@+id/linearLayoutOrderId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/poppins_regular"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayoutText"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="8dp"
+                android:includeFontPadding="false"
+                android:text="Order ID "
+                android:textSize="16sp" />
+
+            <TextView
+                style="@style/poppins_regular"
+
+                android:layout_width="wrap_content"
+                android:textColor="@color/textHeadingColor"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayoutText"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="8dp"
+                android:includeFontPadding="false"
+                android:text="4485"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/viewHorizontalLine"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/linearLayoutOrderId"
+            android:layout_marginTop="8dp"
+            android:background="#D3D3D3" />
+
+        <!--ADDRESS-->
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/viewHorizontalLine"
+            android:orientation="horizontal">
+
+
+            <TextView
+                style="@style/poppins_regular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayoutText"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:text="Address "
+                android:textSize="12sp" />
+
+
+            <TextView
+                style="@style/poppins_regular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayoutText"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="3"
+                android:textColor="@color/textHeadingColor"
+                android:includeFontPadding="false"
+                android:text="This is the addressThis is the addressThis is the address multiple linesss address multiple linesss "
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+        <!--MOBILE-->
+        <LinearLayout
+            android:id="@+id/linearLayoutMobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
+            android:orientation="horizontal">
+
+
+            <TextView
+                style="@style/poppins_regular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayoutText"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:text="Mobile "
+                android:textSize="12sp" />
+
+
+            <TextView
+                style="@style/poppins_regular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayoutText"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="3"
+                android:textColor="@color/textHeadingColor"
+
+                android:includeFontPadding="false"
+                android:text="8998989898"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+        <!--Order Summary-->
+        <LinearLayout
+            android:id="@+id/linearLayoutOrderSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayoutMobile"
+            android:orientation="horizontal">
+
+
+            <TextView
+                style="@style/poppins_regular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayoutText"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:text="Order Summary "
+                android:textSize="12sp" />
+
+
+            <TextView
+                style="@style/poppins_regular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayoutText"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/textHeadingColor"
+
+                android:layout_weight="3"
+                android:includeFontPadding="false"
+                android:text="Order summary Order summary Order summary Order summary Order summary "
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayoutOrder"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonDecline"
+            style="@style/poppins_regular"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_below="@+id/etPassword"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_button_decline"
+            android:elevation="4dp"
+
+            android:includeFontPadding="false"
+            android:text="Decline"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/buttonAccept"
+            style="@style/poppins_regular"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+
+            android:layout_below="@+id/etPassword"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_button"
+            android:elevation="4dp"
+            android:includeFontPadding="false"
+            android:text="Accept"
+            android:textColor="@color/white" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
