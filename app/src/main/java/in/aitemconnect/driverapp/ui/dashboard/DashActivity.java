@@ -1,4 +1,4 @@
-package in.aitemconnect.driverapp.ui;
+package in.aitemconnect.driverapp.ui.dashboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;

@@ -4,270 +4,481 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AvailableOrderActivity">
+    android:background="@color/white"
+    tools:context=".ui.availableOrders.AvailableOrderActivity">
 
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <include
-                android:id="@+id/actionBar"
-                layout="@layout/action_bar_one" />
-
-            <!-- CHECKS -->
-            <LinearLayout
-                android:id="@+id/linearLayoutChecks"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/actionBar"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:orientation="horizontal">
+                android:layout_height="match_parent">
+
+                <include
+                    android:id="@+id/actionBar"
+                    layout="@layout/action_bar_one" />
 
                 <LinearLayout
+                    android:id="@+id/linearLayoutCheckNText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/actionBar"
+                    android:orientation="vertical">
+
+
+                    <!-- CHECKS -->
+                    <LinearLayout
+                        android:id="@+id/linearLayoutChecks"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="4dp"
+                        android:orientation="horizontal">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:id="@+id/imageViewOrder"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@drawable/icon_check_hollow_checked"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <View
+                                android:id="@+id/viewOrderRight"
+                                android:layout_width="wrap_content"
+                                android:layout_height="2dp"
+                                android:layout_weight="1"
+                                android:background="#D3D3D3"
+                                app:layout_constraintBottom_toBottomOf="@id/imageViewOrder"
+                                app:layout_constraintLeft_toRightOf="@+id/imageViewOrder"
+                                app:layout_constraintTop_toTopOf="@+id/imageViewOrder" />
+
+                            <TextView
+                                style="@style/poppins_regular"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="3dp"
+
+                                android:includeFontPadding="false"
+                                android:padding="2dp"
+                                android:text="Order"
+                                android:textAlignment="center"
+                                android:textSize="12sp"
+                                app:layout_constraintEnd_toEndOf="@+id/imageViewOrder"
+                                app:layout_constraintStart_toStartOf="@+id/imageViewOrder"
+                                app:layout_constraintTop_toBottomOf="@+id/imageViewOrder" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+
+                            <View
+                                android:id="@+id/viewAcceptLeft"
+                                android:layout_width="wrap_content"
+                                android:layout_height="2dp"
+                                android:layout_weight="1"
+                                android:background="#D3D3D3"
+                                app:layout_constraintBottom_toBottomOf="@id/imageViewAccept"
+                                app:layout_constraintRight_toLeftOf="@+id/imageViewAccept"
+                                app:layout_constraintTop_toTopOf="@+id/imageViewAccept" />
+
+
+                            <ImageView
+                                android:id="@+id/imageViewAccept"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@drawable/icon_check_hollow_uncheck"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <View
+                                android:id="@+id/viewAcceptRight"
+                                android:layout_width="wrap_content"
+                                android:layout_height="2dp"
+                                android:layout_weight="1"
+
+                                android:background="#D3D3D3"
+                                app:layout_constraintBottom_toBottomOf="@id/imageViewAccept"
+                                app:layout_constraintLeft_toRightOf="@+id/imageViewAccept"
+                                app:layout_constraintTop_toTopOf="@+id/imageViewAccept" />
+
+
+                            <TextView
+                                style="@style/poppins_regular"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="3dp"
+
+                                android:includeFontPadding="false"
+                                android:padding="2dp"
+                                android:text="Accept"
+                                android:textAlignment="center"
+                                android:textSize="12sp"
+                                app:layout_constraintEnd_toEndOf="@+id/imageViewAccept"
+                                app:layout_constraintStart_toStartOf="@+id/imageViewAccept"
+                                app:layout_constraintTop_toBottomOf="@+id/imageViewAccept" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+
+                            <View
+                                android:id="@+id/viewClerkSignLeft"
+                                android:layout_width="wrap_content"
+                                android:layout_height="2dp"
+                                android:layout_weight="1"
+                                android:background="#D3D3D3"
+                                app:layout_constraintBottom_toBottomOf="@id/imageViewClerkSign"
+                                app:layout_constraintRight_toLeftOf="@+id/imageViewClerkSign"
+                                app:layout_constraintTop_toTopOf="@+id/imageViewClerkSign" />
+
+
+                            <ImageView
+                                android:id="@+id/imageViewClerkSign"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@drawable/icon_check_hollow_uncheck"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <View
+                                android:id="@+id/viewClerkSignRight"
+                                android:layout_width="wrap_content"
+                                android:layout_height="2dp"
+                                android:layout_weight="1"
+
+                                android:background="#D3D3D3"
+                                app:layout_constraintBottom_toBottomOf="@id/imageViewClerkSign"
+                                app:layout_constraintLeft_toRightOf="@+id/imageViewClerkSign"
+                                app:layout_constraintTop_toTopOf="@+id/imageViewClerkSign" />
+
+
+                            <TextView
+                                style="@style/poppins_regular"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="3dp"
+
+                                android:includeFontPadding="false"
+                                android:padding="2dp"
+                                android:text="Clerk \nSignature"
+                                android:textAlignment="center"
+                                android:textSize="12sp"
+                                app:layout_constraintEnd_toEndOf="@+id/imageViewClerkSign"
+                                app:layout_constraintStart_toStartOf="@+id/imageViewClerkSign"
+                                app:layout_constraintTop_toBottomOf="@+id/imageViewClerkSign" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+
+                            <View
+                                android:id="@+id/viewShopperSignLeft"
+                                android:layout_width="wrap_content"
+                                android:layout_height="2dp"
+                                android:layout_weight="1"
+                                android:background="#D3D3D3"
+                                app:layout_constraintBottom_toBottomOf="@id/imageViewShopperSign"
+                                app:layout_constraintRight_toLeftOf="@+id/imageViewShopperSign"
+                                app:layout_constraintTop_toTopOf="@+id/imageViewShopperSign" />
+
+
+                            <ImageView
+                                android:id="@+id/imageViewShopperSign"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@drawable/icon_check_hollow_uncheck"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <TextView
+                                style="@style/poppins_regular"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="3dp"
+
+                                android:includeFontPadding="false"
+                                android:padding="2dp"
+                                android:text="Shopper \nSignature"
+                                android:textAlignment="center"
+                                android:textSize="12sp"
+                                app:layout_constraintEnd_toEndOf="@+id/imageViewShopperSign"
+                                app:layout_constraintStart_toStartOf="@+id/imageViewShopperSign"
+                                app:layout_constraintTop_toBottomOf="@+id/imageViewShopperSign" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_weight="1"
+                                android:src="@drawable/icon_check_hollow_checked" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="2dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:background="#D3D3D3" />
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_weight="1"
+                                android:src="@drawable/icon_check_hollow_uncheck" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="2dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:background="#D3D3D3" />
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_weight="1"
+                                android:src="@drawable/icon_check_hollow_uncheck" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="2dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:background="#D3D3D3" />
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_weight="1"
+                                android:src="@drawable/icon_check_hollow_uncheck" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <!-- NAMES OF CHECKS -->
+                    <LinearLayout
+                        android:id="@+id/linearLayoutText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/linearLayoutChecks"
+                        android:layout_marginBottom="16dp"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/poppins_regular"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="3dp"
+                                android:layout_weight="1"
+                                android:includeFontPadding="false"
+                                android:padding="2dp"
+                                android:text="Order"
+                                android:textAlignment="center"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_weight="1.54" />
+
+                            <TextView
+                                style="@style/poppins_regular"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.2"
+
+                                android:includeFontPadding="false"
+                                android:padding="2dp"
+                                android:text="Accept"
+                                android:textAlignment="center"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_weight="1.4" />
+
+                            <TextView
+                                style="@style/poppins_regular"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.6"
+
+                                android:includeFontPadding="false"
+
+                                android:padding="2dp"
+                                android:text="Clerk \nSignature"
+                                android:textAlignment="center"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                style="@style/poppins_regular"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.6"
+
+                                android:includeFontPadding="false"
+                                android:padding="2dp"
+                                android:text="Shopper \nSignature"
+                                android:textAlignment="center"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- TIME REMAINING-->
+                <LinearLayout
+                    android:id="@+id/linearLayoutRemainingTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_below="@+id/linearLayoutCheckNText"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="0dp"
+
+                    <TextView
+                        style="@style/poppins_regular"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_weight="1"
-                        android:src="@drawable/icon_check_hollow_checked" />
+                        android:includeFontPadding="false"
+                        android:text="Accept order in "
+                        android:textSize="16sp" />
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="2dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:background="#D3D3D3" />
-
-                    <ImageView
-                        android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/tvRemainingTime"
+                        style="@style/poppins_regular"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_weight="1"
-                        android:src="@drawable/icon_check_hollow_uncheck" />
+                        android:includeFontPadding="false"
+                        android:text="102"
+                        android:textSize="18sp" />
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="2dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:background="#D3D3D3" />
-
-                    <ImageView
-                        android:layout_width="0dp"
+                    <TextView
+                        style="@style/poppins_regular"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_weight="1"
-                        android:src="@drawable/icon_check_hollow_uncheck" />
+                        android:includeFontPadding="false"
+                        android:text=" "
+                        android:textSize="16sp" />
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="2dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:background="#D3D3D3" />
-
-                    <ImageView
-                        android:layout_width="0dp"
+                    <TextView
+                        style="@style/poppins_regular"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_weight="1"
-                        android:src="@drawable/icon_check_hollow_uncheck" />
-
-
+                        android:layout_below="@+id/linearLayoutText"
+                        android:includeFontPadding="false"
+                        android:text="seconds"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
-
-            </LinearLayout>
-
-            <!-- NAMES OF CHECKS -->
-            <LinearLayout
-                android:id="@+id/linearLayoutText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayoutChecks"
-                android:layout_marginBottom="16dp">
-
-                <LinearLayout
+                <!-- ORDER INCLUDED -->
+                <include
+                    android:id="@+id/includedLayoutRecentOrder"
+                    layout="@layout/layout_order_recent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:orientation="horizontal">
+                    android:layout_below="@+id/linearLayoutRemainingTime" />
 
-                    <TextView
-                        style="@style/poppins_regular"
-                        android:layout_width="0dp"
-                        android:padding="2dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="3dp"
-                        android:layout_weight="1"
-                        android:includeFontPadding="false"
-                        android:text="Order"
-                        android:textAlignment="center"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1.54" />
-
-                    <TextView
-                        style="@style/poppins_regular"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp"
-
-                        android:layout_weight="1.2"
-                        android:includeFontPadding="false"
-                        android:text="Accept"
-                        android:textAlignment="center"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1.4" />
-
-                    <TextView
-                        style="@style/poppins_regular"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp"
-
-                        android:layout_weight="1.6"
-
-                        android:includeFontPadding="false"
-                        android:text="Clerk \nSignature"
-                        android:textAlignment="center"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        style="@style/poppins_regular"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp"
-
-                        android:layout_weight="1.6"
-                        android:includeFontPadding="false"
-                        android:text="Shopper \nSignature"
-                        android:textAlignment="center"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- TIME REMAINING-->
-            <LinearLayout
-                android:id="@+id/linearLayoutRemainingTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayoutText"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:orientation="horizontal">
-
-
-                <TextView
-                    style="@style/poppins_regular"
-                    android:layout_width="wrap_content"
+                <!-- ACCEPT INCLUDED -->
+                <include
+                    android:id="@+id/includedLayoutRecentOrder"
+                    layout="@layout/layout_order_accepted"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:includeFontPadding="false"
-                    android:text="Accept order in "
-                    android:textSize="16sp" />
+                    android:layout_below="@+id/linearLayoutRemainingTime" />
 
-                <TextView
-                    android:id="@+id/tvRemainingTime"
-                    style="@style/poppins_regular"
-                    android:layout_width="wrap_content"
+                <!-- CLERK SIGN INCLUDED -->
+                <include
+                    android:id="@+id/includedLayoutRecentOrder"
+                    layout="@layout/layout_clerk_signature"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:includeFontPadding="false"
-                    android:text="102"
-                    android:textSize="16sp" />
+                    android:layout_below="@+id/linearLayoutRemainingTime" />
 
-                <TextView
-                    style="@style/poppins_regular"
-                    android:layout_width="wrap_content"
+                <!-- SHOPPER INCLUDED -->
+                <include
+                    android:id="@+id/includedLayoutRecentOrder"
+                    layout="@layout/layout_shopper_signature"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:includeFontPadding="false"
-                    android:text=" "
-                    android:textSize="16sp" />
+                    android:layout_below="@+id/linearLayoutRemainingTime" />
 
-                <TextView
-                    style="@style/poppins_regular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/linearLayoutText"
-                    android:includeFontPadding="false"
-                    android:text="seconds"
-                    android:textSize="16sp" />
-            </LinearLayout>
 
-            <!-- ORDER INCLUDED -->
-            <include
-                android:id="@+id/includedLayoutRecentOrder"
-                layout="@layout/layout_order_recent"
-                android:layout_width="match_parent"
-                android:visibility="visible"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayoutRemainingTime" />
+            </RelativeLayout>
 
-            <EditText
-                android:id="@+id/etClerkSignature"
-                style="@style/poppins_regular"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayoutRemainingTime"
+        </ScrollView>
 
-                android:layout_margin="16dp"
-
-                android:background="@drawable/background_et"
-                android:gravity="start"
-                android:hint="Clerk's signature"
-                android:includeFontPadding="false"
-                android:maxLines="1"
-                android:visibility="gone"
-
-                android:padding="12dp"
-                android:textSize="14sp" />
-
-            <EditText
-                android:id="@+id/etShopperSignature"
-                style="@style/poppins_regular"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayoutRemainingTime"
-
-                android:visibility="gone"
-                android:layout_margin="16dp"
-
-                android:background="@drawable/background_et"
-                android:gravity="start"
-                android:hint="Shopper's signature"
-                android:includeFontPadding="false"
-                android:maxLines="1"
-                android:padding="12dp"
-                android:textSize="14sp" />
-
-        </RelativeLayout>
-
-    </ScrollView>
-
+    </RelativeLayout>
 </RelativeLayout>
