@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Driver app</string>
+    <string name="verifyClerksSign">Verify clerk\'s signature</string>
+    <string name="driverAuthToken">DRIVER_AUTH_T0KEN</string>
+    <string name="driversPrefs">DRIVER_PREFS</string>
 </resources>

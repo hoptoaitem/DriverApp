@@ -8,11 +8,17 @@ import in.aitemconnect.driverapp.pojo.TestPojo;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
+import retrofit2.http.POST;
 
 public interface ApiInterface {
 
-    @GET("/login")
-    Call<LoginResultPojo> login(@Body LogInPojo logInPojo);
+    //    @Headers({"Content-Type: application/json"})
+    @POST("/login")
+    Call<LoginResultPojo> loginRequest(@Body LogInPojo logInPojo);
 
-
+    @Headers({"Content-Type: application/json"})
+    @POST("/orders")
+    Call<LoginResultPojo> getOrders(@Header("api-key-token") String apiKeyToken);
 }

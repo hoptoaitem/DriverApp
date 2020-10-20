@@ -6,43 +6,273 @@
     <RelativeLayout
         android:id="@+id/rlClerkSignParent"
         android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="wrap_content">
-
-    <EditText
-        android:id="@+id/etClerkSignature"
-        style="@style/poppins_regular"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone">
 
-        android:layout_margin="16dp"
+        <!-- ORDER INCLUDED -->
+        <RelativeLayout
+            android:id="@+id/relativeLayoutOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/background_card"
+            android:paddingBottom="8dp">
 
-        android:background="@drawable/background_et"
-        android:gravity="start"
-        android:hint="Clerk's signature"
-        android:includeFontPadding="false"
-        android:maxLines="1"
-        android:padding="12dp"
+            <!-- ORDER ID-->
+            <LinearLayout
+                android:id="@+id/linearLayoutOrderId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        android:textSize="14sp" />
+                <TextView
+                    style="@style/poppins_regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linearLayoutText"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:includeFontPadding="false"
+                    android:text="Order ID "
+                    android:textSize="16sp" />
+
+                <TextView
+                    style="@style/poppins_regular"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linearLayoutText"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="8dp"
+                    android:includeFontPadding="false"
+                    android:text="4485"
+                    android:textColor="@color/textHeadingColor"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/viewHorizontalLine"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/linearLayoutOrderId"
+                android:layout_marginTop="8dp"
+                android:background="#D3D3D3" />
 
 
-    <Button
-        android:id="@+id/buttonNextOnClerkSignature"
-        style="@style/poppins_regular"
-        android:layout_marginBottom="16dp"
+            <!--STORE NAME-->
+            <LinearLayout
+                android:id="@+id/linearLayoutStoreName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/viewHorizontalLine"
+                android:orientation="horizontal">
 
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@+id/etClerkSignature"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/background_button"
-        android:elevation="4dp"
-        android:includeFontPadding="false"
-        android:text="Next"
-        android:textColor="@color/white" />
 
-</RelativeLayout>
+                <TextView
+                    style="@style/poppins_regular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:includeFontPadding="false"
+                    android:text="Store Name "
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    style="@style/poppins_regular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="3"
+                    android:includeFontPadding="false"
+                    android:text="Incorporate a C-Corp, S-Corp or LLC"
+                    android:textColor="@color/textHeadingColor"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <!--ADDRESS-->
+            <LinearLayout
+                android:id="@+id/linearLayoutAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayoutStoreName"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    style="@style/poppins_regular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:includeFontPadding="false"
+                    android:text="Address "
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    style="@style/poppins_regular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+
+                    android:layout_weight="3"
+                    android:includeFontPadding="false"
+                    android:text="374 William S Canning Blvd, Fall River MA 2721"
+                    android:textColor="@color/textHeadingColor"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <!--MOBILE-->
+            <LinearLayout
+                android:id="@+id/linearLayoutMobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayoutAddress"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    style="@style/poppins_regular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:includeFontPadding="false"
+                    android:text="Mobile "
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    style="@style/poppins_regular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="3"
+                    android:includeFontPadding="false"
+
+                    android:text="8998989898"
+                    android:textColor="@color/textHeadingColor"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/etClerkSignature"
+            style="@style/poppins_regular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relativeLayoutOrder"
+
+            android:layout_margin="16dp"
+
+            android:background="@drawable/background_et"
+            android:gravity="start"
+            android:hint="Clerk's signature"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:padding="12dp"
+
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/llDropInstructionsAndAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etClerkSignature"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!-- Drop instructions -->
+            <TextView
+                android:id="@+id/tvInstDriveToDestination"
+                style="@style/poppins_regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+
+                android:includeFontPadding="false"
+                android:text="Signature verified. \nPlease drive to the drop location provided. "
+                android:textColor="@color/textHeadingColor"
+                android:textSize="16sp" />
+
+            <!--ADDRESS-->
+            <LinearLayout
+                android:id="@+id/linearLayoutDropAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvInstDriveToDestination"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    style="@style/poppins_regular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:includeFontPadding="false"
+                    android:text="Drop Location "
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    style="@style/poppins_regular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+
+                    android:layout_weight="3"
+                    android:includeFontPadding="false"
+                    android:text="774 San S Canning Blvd, Fall River MA 44"
+                    android:textColor="@color/textHeadingColor"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/buttonNextOnClerkSignature"
+            style="@style/poppins_regular"
+            android:layout_width="match_parent"
+
+            android:layout_height="45dp"
+            android:layout_below="@+id/llDropInstructionsAndAddress"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/background_button"
+            android:elevation="4dp"
+            android:includeFontPadding="false"
+            android:text="@string/verifyClerksSign"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
 </RelativeLayout>

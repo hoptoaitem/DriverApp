@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +23,15 @@ import in.aitemconnect.driverapp.ui.dashboard.DashActivity;
 
 public class AvailableOrderActivity extends AppCompatActivity {
 
+
+    @BindView(R.id.buttonNextOnClerkSignature)
+    Button buttonNextOnClerkSignature;
+
+    @BindView(R.id.etClerkSignature)
+    EditText etClerkSignature;
+
+    @BindView(R.id.llDropInstructionsAndAddress)
+    LinearLayout llDropInstructionsAndAddress;
 
     @BindView(R.id.linearLayoutRemainingTime)
     LinearLayout linearLayoutRemainingTime;
@@ -119,12 +130,24 @@ public class AvailableOrderActivity extends AppCompatActivity {
                 updateUiTillClerkSign();
                 break;
             case R.id.buttonNextOnClerkSignature:
-                updateUiTillShopperSign();
+                if (buttonNextOnClerkSignature.getText().toString().trim()
+                        .equalsIgnoreCase(getResources().getString(R.string.verifyClerksSign))) {
+                    String clerkSign = etClerkSignature.getText().toString().trim();
+
+                    if (clerkSign.isEmpty()) {
+                        Toast.makeText(AvailableOrderActivity.this, "Order should be signed by the clerk!", Toast.LENGTH_LONG).show();
+                    } else {
+                        llDropInstructionsAndAddress.setVisibility(View.VISIBLE);
+                        buttonNextOnClerkSignature.setText("NEXT");
+                    }
+
+                }else {
+                    updateUiTillShopperSign();
+                }
                 break;
             case R.id.buttonFinishOnShopperSignature:
                 startActivity(new Intent(AvailableOrderActivity.this, DashActivity.class));
                 break;
-
 
         }
 

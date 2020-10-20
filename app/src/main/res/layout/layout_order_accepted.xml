@@ -6,8 +6,8 @@
     <RelativeLayout
         android:id="@+id/rlAcceptedParent"
         android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tvInstructions"
@@ -15,53 +15,182 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_weight="1"
             android:includeFontPadding="false"
-            android:text="Thank you for accepting the order, \nplease drive to the address provided. "
+            android:text="Thank you for accepting the order. \nPlease drive to the address provided. "
             android:textColor="@color/textHeadingColor"
             android:textSize="16sp" />
 
-
-        <!--ADDRESS-->
-        <LinearLayout
-            android:id="@+id/linearLayoutAddress"
+        <!-- ORDER INCLUDED -->
+        <RelativeLayout
+            android:id="@+id/relativeLayoutOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvInstructions"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/tvInstructions"
             android:layout_marginEnd="16dp"
-            android:orientation="horizontal">
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/background_card"
+            android:paddingBottom="8dp">
 
-
-            <TextView
-                style="@style/poppins_regular"
-                android:layout_width="0dp"
+            <!-- ORDER ID-->
+            <LinearLayout
+                android:id="@+id/linearLayoutOrderId"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <TextView
+                    style="@style/poppins_regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linearLayoutText"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:includeFontPadding="false"
+                    android:text="Order ID "
+                    android:textSize="16sp" />
+
+                <TextView
+                    style="@style/poppins_regular"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linearLayoutText"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="8dp"
+                    android:includeFontPadding="false"
+                    android:text="4485"
+                    android:textColor="@color/textHeadingColor"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/viewHorizontalLine"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/linearLayoutOrderId"
                 android:layout_marginTop="8dp"
-                android:layout_weight="1"
-                android:includeFontPadding="false"
-                android:text="Address "
-                android:textSize="12sp" />
+                android:background="#D3D3D3" />
 
 
-            <TextView
-                style="@style/poppins_regular"
-                android:layout_width="0dp"
+            <!--STORE NAME-->
+            <LinearLayout
+                android:id="@+id/linearLayoutStoreName"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginTop="8dp"
+                android:layout_below="@+id/viewHorizontalLine"
+                android:orientation="horizontal">
 
 
-                android:layout_weight="3"
-                android:includeFontPadding="false"
-                android:text="374 William S Canning Blvd, Fall River MA 2721"
-                android:textColor="@color/textHeadingColor"
-                android:textSize="16sp" />
-        </LinearLayout>
+                <TextView
+                    style="@style/poppins_regular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:includeFontPadding="false"
+                    android:text="Store Name "
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    style="@style/poppins_regular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="3"
+                    android:includeFontPadding="false"
+                    android:text="Incorporate a C-Corp, S-Corp or LLC"
+                    android:textColor="@color/textHeadingColor"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <!--ADDRESS-->
+            <LinearLayout
+                android:id="@+id/linearLayoutAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayoutStoreName"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    style="@style/poppins_regular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:includeFontPadding="false"
+                    android:text="Address "
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    style="@style/poppins_regular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+
+                    android:layout_weight="3"
+                    android:includeFontPadding="false"
+                    android:text="374 William S Canning Blvd, Fall River MA 2721"
+                    android:textColor="@color/textHeadingColor"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <!--MOBILE-->
+            <LinearLayout
+                android:id="@+id/linearLayoutMobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayoutAddress"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    style="@style/poppins_regular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:includeFontPadding="false"
+                    android:text="Mobile "
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    style="@style/poppins_regular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="3"
+                    android:includeFontPadding="false"
+
+                    android:text="8998989898"
+                    android:textColor="@color/textHeadingColor"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
 
 
         <Button
@@ -69,9 +198,9 @@
             style="@style/poppins_regular"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_below="@+id/linearLayoutAddress"
+            android:layout_below="@+id/relativeLayoutOrder"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16sp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/background_button"
             android:elevation="4dp"

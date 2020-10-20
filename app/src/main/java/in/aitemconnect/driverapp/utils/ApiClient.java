@@ -16,7 +16,7 @@ public class ApiClient {
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("")
+                .baseUrl(ApiLinks.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

@@ -2,6 +2,7 @@ package in.aitemconnect.driverapp.ui.dashboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +28,8 @@ public class DashActivity extends AppCompatActivity {
     @BindView(R.id.mToolbar)
     Toolbar mToolbar;
 
+    DashboardViewModel dashboardViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,40 +41,11 @@ public class DashActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
         textViewActionBarHeading.setText("Completed orders");
 
+        dashboardViewModel = ViewModelProviders.of(this).get(DashboardViewModel.class);
+        // Get the orders
+        dashboardViewModel.getOrders(DashActivity.this);
 
         ArrayList<String> activity_dash = new ArrayList<>();
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
         activity_dash.add("Adf");
         activity_dash.add("Adf");
         activity_dash.add("Adf");

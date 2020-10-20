@@ -13,9 +13,6 @@ public class LoginResultPojo {
     @SerializedName("profileType")
     private String profileType;
 
-    @Expose
-    @SerializedName("username")
-    private String username;
 
     public String getAuthToken() {
         return authToken;
@@ -33,11 +30,4 @@ public class LoginResultPojo {
         this.profileType = profileType;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 }

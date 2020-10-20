@@ -172,84 +172,10 @@
             </LinearLayout>
 
 
-            <!--Order Summary-->
-            <LinearLayout
-                android:id="@+id/linearLayoutOrderSummary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayoutMobile"
-                android:orientation="horizontal">
-
-
-                <TextView
-                    style="@style/poppins_regular"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_weight="1"
-                    android:includeFontPadding="false"
-                    android:text="Order Summary "
-                    android:textSize="12sp" />
-
-
-                <TextView
-                    style="@style/poppins_regular"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="3"
-
-                    android:includeFontPadding="false"
-                    android:text="Order summary \nOrder summary \nOrder summary"
-                    android:textColor="@color/textHeadingColor"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-
-            <!--STATUS-->
-            <LinearLayout
-                android:id="@+id/linearLayoutStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayoutOrderSummary"
-                android:orientation="horizontal">
-
-
-                <TextView
-                    style="@style/poppins_regular"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_weight="1"
-                    android:includeFontPadding="false"
-                    android:text="Status "
-                    android:textSize="12sp" />
-
-
-                <TextView
-                    style="@style/poppins_regular"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="3"
-
-
-                    android:includeFontPadding="false"
-                    android:text="Completed"
-                    android:textColor="@color/textHeadingColor"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayoutRecentOrdersButtons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/relativeLayoutOrder"
