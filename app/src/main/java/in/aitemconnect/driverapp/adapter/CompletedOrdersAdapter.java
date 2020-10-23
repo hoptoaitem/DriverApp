@@ -4,20 +4,24 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import in.aitemconnect.driverapp.R;
+import in.aitemconnect.driverapp.pojo.order.OrderPojo;
 
 public class CompletedOrdersAdapter extends RecyclerView.Adapter<CompletedOrdersAdapter.CompletedOrdersViewHolder> {
 
-    ArrayList<String> arrayList;
+    ArrayList<OrderPojo> arrayList;
     Context mContext;
 
-    public CompletedOrdersAdapter(ArrayList<String> arrayList, Context mContext) {
+    public CompletedOrdersAdapter(ArrayList<OrderPojo> arrayList, Context mContext) {
         this.arrayList = arrayList;
         this.mContext = mContext;
     }
@@ -32,7 +36,11 @@ public class CompletedOrdersAdapter extends RecyclerView.Adapter<CompletedOrders
 
     @Override
     public void onBindViewHolder(@NonNull CompletedOrdersViewHolder holder, int position) {
+        String createdAt = arrayList.get(position).getCreatedAt();
+        String id = arrayList.get(position).getId();
 
+        holder.tvOrderId.setText(id);
+        holder.tvDate.setText(createdAt);
     }
 
     @Override
@@ -41,8 +49,16 @@ public class CompletedOrdersAdapter extends RecyclerView.Adapter<CompletedOrders
     }
 
     public class CompletedOrdersViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.tvOrderId)
+        TextView tvOrderId;
+
+        @BindView(R.id.tvDate)
+        TextView tvDate;
+
         public CompletedOrdersViewHolder(@NonNull View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 

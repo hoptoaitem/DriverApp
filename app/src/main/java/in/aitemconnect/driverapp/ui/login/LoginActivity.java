@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.aitemconnect.driverapp.R;
 import in.aitemconnect.driverapp.ui.availableOrders.AvailableOrderActivity;
+import in.aitemconnect.driverapp.ui.dashboard.DashActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -43,26 +44,29 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(LoginActivity.this);
 
+        String drivPrefs = getResources().getString(R.string.driversPrefs);
+        SharedPreferences sharedPreferences = getSharedPreferences(drivPrefs, MODE_PRIVATE);
+        boolean isUserLoggedIn = sharedPreferences.getBoolean(getString(R.string.isuserloggedin), false);
+
+        if (isUserLoggedIn) {
+            // User is logged in
+            toNewActivity();
+        }
+
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
 
         loginViewModel.loginSuccess.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
 
-                String drivPrefs = getResources().getString(R.string.driversPrefs);
 //                String authToken = getResources().getString(R.string.driverAuthToken);
 //                String authtoken = sharedPreferences.getString(authToken, "null");
 
-                SharedPreferences sharedPreferences = getSharedPreferences(drivPrefs, MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("USER_LOGGED_IN", true);
+                editor.putBoolean(getString(R.string.isuserloggedin), true);
                 editor.apply();
 
-
-                Intent intent = new Intent(LoginActivity.this, AvailableOrderActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                finish();
+                toNewActivity();
 
 //                startActivity(new Intent(LoginActivity.this, AvailableOrderActivity.class));
             }
@@ -108,6 +112,8 @@ public class LoginActivity extends AppCompatActivity {
             });
         }
     */
+
+
     @OnClick(R.id.buttonLogin)
     public void Onclick(View view) {
         int viewId = view.getId();
@@ -128,8 +134,16 @@ public class LoginActivity extends AppCompatActivity {
                 progressBarLogin.setVisibility(View.VISIBLE);
             }
 
-//            startActivity(new Intent(this, DashActivity.class));
-//
+            // startActivity(new Intent(this, DashActivity.class));
+
         }
+    }
+
+    void toNewActivity() {
+//        Intent intent = new Intent(LoginActivity.this, AvailableOrderActivity.class);
+        Intent intent = new Intent(LoginActivity.this, DashActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 }

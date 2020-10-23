@@ -1,8 +1,5 @@
 package in.aitemconnect.driverapp.ui.availableOrders;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -15,14 +12,23 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
+
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.aitemconnect.driverapp.R;
+import in.aitemconnect.driverapp.pojo.order.Destination;
+import in.aitemconnect.driverapp.pojo.order.Item;
+import in.aitemconnect.driverapp.pojo.order.OrderPojo;
+import in.aitemconnect.driverapp.pojo.order.Origin;
 import in.aitemconnect.driverapp.ui.dashboard.DashActivity;
 
 public class AvailableOrderActivity extends AppCompatActivity {
-
 
     @BindView(R.id.buttonNextOnClerkSignature)
     Button buttonNextOnClerkSignature;
@@ -90,6 +96,9 @@ public class AvailableOrderActivity extends AppCompatActivity {
 
     long timeToCount = 1000 * 120;
 
+    OrderPojo order_pojo;
+    AvailableOrdersViewModel availableOrdersViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +109,18 @@ public class AvailableOrderActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("");
         textViewActionBarHeading.setText("Available order");
+
+        availableOrdersViewModel = ViewModelProviders.of(this).get(AvailableOrdersViewModel.class);
+
+        // TODO: 23-10-2020 CHECK CODE
+        Intent intent = getIntent();
+        order_pojo = (OrderPojo) intent.getSerializableExtra("order_pojo");
+        String id = order_pojo.getId();
+
+        setTexts(order_pojo);
+
+        Toast.makeText(this, "id " + id, Toast.LENGTH_SHORT).show();
+
 
         CountDownTimer countDownTimer = new CountDownTimer(timeToCount, 125) {
 
@@ -115,7 +136,17 @@ public class AvailableOrderActivity extends AppCompatActivity {
             }
         };
         countDownTimer.start();
+    }
 
+    void setTexts(OrderPojo order_pojo) {
+        Destination destination = order_pojo.getDestination();
+        Origin origin = order_pojo.getOrigin();
+        List<Item> items = order_pojo.getItems();
+
+        String id = order_pojo.getId();
+        String createdAt = order_pojo.getCreatedAt();
+
+        Toast.makeText(AvailableOrderActivity.this, "id " + id, Toast.LENGTH_SHORT).show();
     }
 
     @OnClick({R.id.buttonAccept, R.id.buttonNextOnAccept,
@@ -124,11 +155,14 @@ public class AvailableOrderActivity extends AppCompatActivity {
         int id = view.getId();
         switch (id) {
             case R.id.buttonAccept:
-                updateUiTillAccept();
+                availableOrdersViewModel.acceptOrders(AvailableOrderActivity.this);
+//            todo    updateUiTillAccept();
                 break;
+
             case R.id.buttonNextOnAccept:
                 updateUiTillClerkSign();
                 break;
+
             case R.id.buttonNextOnClerkSignature:
                 if (buttonNextOnClerkSignature.getText().toString().trim()
                         .equalsIgnoreCase(getResources().getString(R.string.verifyClerksSign))) {
@@ -141,12 +175,15 @@ public class AvailableOrderActivity extends AppCompatActivity {
                         buttonNextOnClerkSignature.setText("NEXT");
                     }
 
-                }else {
+                } else {
                     updateUiTillShopperSign();
                 }
                 break;
+
             case R.id.buttonFinishOnShopperSignature:
-                startActivity(new Intent(AvailableOrderActivity.this, DashActivity.class));
+                availableOrdersViewModel.finishOrder(AvailableOrderActivity.this);
+
+//              todo  startActivity(new Intent(AvailableOrderActivity.this, DashActivity.class));
                 break;
 
         }

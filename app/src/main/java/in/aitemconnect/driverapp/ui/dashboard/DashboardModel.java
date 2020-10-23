@@ -1,4 +1,67 @@
 package in.aitemconnect.driverapp.ui.dashboard;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import in.aitemconnect.driverapp.R;
+import in.aitemconnect.driverapp.pojo.LoginResultPojo;
+import in.aitemconnect.driverapp.pojo.order.OrderPojo;
+import in.aitemconnect.driverapp.pojo.order.OrderPojo;
+import in.aitemconnect.driverapp.utils.ApiClient;
+import in.aitemconnect.driverapp.utils.ApiInterface;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class DashboardModel {
+
+    private static final String TAG = "DashboardModel";
+    DashboardInterface dashboardInterface;
+    ApiInterface apiInterface;
+
+
+    public DashboardModel(DashboardInterface dashboardInterface) {
+        this.dashboardInterface = dashboardInterface;
+
+        apiInterface = ApiClient.getRetrofit().create(ApiInterface.class);
+    }
+
+    public interface DashboardInterface {
+        void orderResult(ArrayList<OrderPojo> orderPojo);
+
+        void orderRequestFailed(String message);
+    }
+
+    void checkOrder(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(
+                context.getString(R.string.driversPrefs), Context.MODE_PRIVATE);
+        String authToken = sharedPreferences.getString(context.getString(R.string.driverAuthToken), "null_token");
+
+        apiInterface.getOrders(authToken).enqueue(new Callback<ArrayList<OrderPojo>>() {
+            @Override
+            public void onResponse(Call<ArrayList<OrderPojo>> call, Response<ArrayList<OrderPojo>> response) {
+
+                if (response != null && response.isSuccessful()) {
+                    ArrayList<OrderPojo> responseArray = response.body();
+                    dashboardInterface.orderResult(responseArray);
+
+                } else {
+                    dashboardInterface.orderRequestFailed("Request failed!");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<OrderPojo>> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.getMessage());
+            }
+        });
+
+
+    }
+
 }

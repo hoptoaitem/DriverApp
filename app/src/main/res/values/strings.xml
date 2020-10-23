@@ -3,4 +3,5 @@
     <string name="verifyClerksSign">Verify clerk\'s signature</string>
     <string name="driverAuthToken">DRIVER_AUTH_T0KEN</string>
     <string name="driversPrefs">DRIVER_PREFS</string>
+    <string name="isuserloggedin">IS_USER_LOGGED_IN</string>
 </resources>

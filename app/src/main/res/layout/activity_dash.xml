@@ -11,11 +11,25 @@
         android:id="@+id/actionBar"
         layout="@layout/action_bar_one" />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCompletedOrders"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/actionBar" />
+        android:layout_below="@+id/actionBar"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvNoOrdersFound"
+        style="@style/poppins_regular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/actionBar"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="32dp"
+        android:includeFontPadding="false"
+        android:text="No orders completed"
+        android:textAlignment="center"
+        android:textColor="@color/textHeadingColor"
+        android:textSize="20sp" />
 
 </RelativeLayout>

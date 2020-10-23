@@ -2,20 +2,28 @@ package in.aitemconnect.driverapp.ui.dashboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import in.aitemconnect.driverapp.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.aitemconnect.driverapp.adapter.CompletedOrdersAdapter;
+import in.aitemconnect.driverapp.pojo.order.Item;
+import in.aitemconnect.driverapp.pojo.order.OrderPojo;
+import in.aitemconnect.driverapp.ui.availableOrders.AvailableOrderActivity;
 
 public class DashActivity extends AppCompatActivity {
 
@@ -25,11 +33,13 @@ public class DashActivity extends AppCompatActivity {
     @BindView(R.id.textViewActionBarHeading)
     TextView textViewActionBarHeading;
 
+    @BindView(R.id.tvNoOrdersFound)
+    TextView tvNoOrdersFound;
+
     @BindView(R.id.mToolbar)
     Toolbar mToolbar;
 
     DashboardViewModel dashboardViewModel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,18 +51,51 @@ public class DashActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
         textViewActionBarHeading.setText("Completed orders");
 
-        dashboardViewModel = ViewModelProviders.of(this).get(DashboardViewModel.class);
+        dashboardViewModel = ViewModelProviders.of(DashActivity.this).get(DashboardViewModel.class);
         // Get the orders
         dashboardViewModel.getOrders(DashActivity.this);
 
-        ArrayList<String> activity_dash = new ArrayList<>();
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
-        activity_dash.add("Adf");
 
-        recyclerViewCompletedOrders.setLayoutManager(new LinearLayoutManager(DashActivity.this));
-        CompletedOrdersAdapter completedOrdersAdapter = new CompletedOrdersAdapter(activity_dash, DashActivity.this);
-        recyclerViewCompletedOrders.setAdapter(completedOrdersAdapter);
+        dashboardViewModel.requestFailed.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                Toast.makeText(DashActivity.this, "" + s, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dashboardViewModel.orderResult.observe(this, new Observer<ArrayList<OrderPojo>>() {
+            @Override
+            public void onChanged(ArrayList<OrderPojo> orderPojos) {
+                if (orderPojos.size() > 0) {
+                    // Check if there is any available order to accept
+                    // IN_CART
+                    // TODO: 23-10-2020 check status here // IN_CART
+//                    if (orderPojos.get(0).getOrderStatus()) {
+//                    }
+
+                    if (orderPojos.size() == 1) {
+                        Intent intent = new Intent(DashActivity.this, AvailableOrderActivity.class);
+                        OrderPojo orderPojo = orderPojos.get(0);
+                        intent.putExtra("order_pojo", orderPojo);
+                        startActivity(intent);
+
+                    } else {
+                        recyclerViewCompletedOrders.setLayoutManager(
+                                new LinearLayoutManager(DashActivity.this));
+
+                        CompletedOrdersAdapter completedOrdersAdapter = new CompletedOrdersAdapter(orderPojos,
+                                DashActivity.this);
+                        recyclerViewCompletedOrders.setAdapter(completedOrdersAdapter);
+                    }
+
+                } else {
+                    // Show no orders found
+                    tvNoOrdersFound.setVisibility(View.VISIBLE);
+                    recyclerViewCompletedOrders.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
     }
 }
