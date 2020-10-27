@@ -31,7 +31,7 @@
                     android:orientation="vertical">
 
 
-                    <!-- CHECKS -->
+                    <!-- PROGRESS BAR CHECK MARKS -->
                     <LinearLayout
                         android:id="@+id/linearLayoutChecks"
                         android:layout_width="match_parent"
@@ -308,7 +308,7 @@
 
                     </LinearLayout>
 
-                    <!-- NAMES OF CHECKS -->
+                    <!-- NAMES OF PROGRESS BAR CHECK MARKS -->
                     <LinearLayout
                         android:id="@+id/linearLayoutText"
                         android:layout_width="match_parent"
@@ -441,7 +441,7 @@
                         android:textSize="16sp" />
                 </LinearLayout>
 
-                <!-- ORDER INCLUDED -->
+                <!-- ORDER  -->
                 <include
                     android:id="@+id/includedLayoutRecentOrder"
                     layout="@layout/layout_order_recent"
@@ -449,7 +449,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linearLayoutRemainingTime" />
 
-                <!-- ACCEPT INCLUDED -->
+                <!-- ACCEPT -->
                 <include
                     android:id="@+id/includedLayoutRecentOrder"
                     layout="@layout/layout_order_accepted"
@@ -457,7 +457,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linearLayoutRemainingTime" />
 
-                <!-- CLERK SIGN INCLUDED -->
+                <!-- CLERK SIGNATURE -->
                 <include
                     android:id="@+id/includedLayoutRecentOrder"
                     layout="@layout/layout_clerk_signature"
@@ -465,7 +465,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linearLayoutRemainingTime" />
 
-                <!-- SHOPPER INCLUDED -->
+                <!-- SHOPPER SIGNATURE -->
                 <include
                     android:id="@+id/includedLayoutRecentOrder"
                     layout="@layout/layout_shopper_signature"

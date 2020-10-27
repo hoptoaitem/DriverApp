@@ -38,8 +38,8 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tvOrderIdOrder"
                     style="@style/poppins_regular"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linearLayoutText"
@@ -83,6 +83,7 @@
 
 
                 <TextView
+                    android:id="@+id/tvStoreNameOrder"
                     style="@style/poppins_regular"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -119,8 +120,10 @@
 
 
                 <TextView
+                    android:id="@+id/tvOriginAddressOrder"
                     style="@style/poppins_regular"
                     android:layout_width="0dp"
+
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="8dp"
@@ -156,8 +159,10 @@
 
 
                 <TextView
+                    android:id="@+id/tvMobileOrder"
                     style="@style/poppins_regular"
                     android:layout_width="0dp"
+
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="8dp"

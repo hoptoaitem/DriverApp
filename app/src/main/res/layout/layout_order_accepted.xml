@@ -15,9 +15,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:includeFontPadding="false"
             android:text="Thank you for accepting the order. \nPlease drive to the address provided. "
@@ -29,9 +29,9 @@
             android:id="@+id/relativeLayoutOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tvInstructions"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_below="@+id/tvInstructions"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/background_card"
@@ -56,8 +56,8 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tvOrderIdAccept"
                     style="@style/poppins_regular"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linearLayoutText"
@@ -81,7 +81,7 @@
 
             <!--STORE NAME-->
             <LinearLayout
-                android:id="@+id/linearLayoutStoreName"
+                android:id="@+id/linearLayoutStoreNameAccept"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/viewHorizontalLine"
@@ -101,6 +101,7 @@
 
 
                 <TextView
+                    android:id="@+id/tvStoreNameAccept"
                     style="@style/poppins_regular"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -120,7 +121,7 @@
                 android:id="@+id/linearLayoutAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayoutStoreName"
+                android:layout_below="@+id/linearLayoutStoreNameAccept"
                 android:orientation="horizontal">
 
 
@@ -137,6 +138,7 @@
 
 
                 <TextView
+                    android:id="@+id/tvOriginAddressAccept"
                     style="@style/poppins_regular"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -174,6 +176,7 @@
 
 
                 <TextView
+                    android:id="@+id/tvMobileAccept"
                     style="@style/poppins_regular"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -190,7 +193,6 @@
 
 
         </RelativeLayout>
-
 
 
         <Button

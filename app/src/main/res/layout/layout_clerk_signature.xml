@@ -40,8 +40,8 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tvOrderIdClerkSign"
                     style="@style/poppins_regular"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linearLayoutText"
@@ -85,9 +85,11 @@
 
 
                 <TextView
+                    android:id="@+id/tvStoreNameClerkSign"
                     style="@style/poppins_regular"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
@@ -121,11 +123,13 @@
 
 
                 <TextView
+                    android:id="@+id/tvOriginAddressClerkSign"
                     style="@style/poppins_regular"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="8dp"
+
                     android:layout_marginEnd="8dp"
 
                     android:layout_weight="3"
@@ -158,10 +162,12 @@
 
 
                 <TextView
+                    android:id="@+id/tvMobileClerkSign"
                     style="@style/poppins_regular"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
+
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="3"
@@ -241,6 +247,7 @@
                 <TextView
                     style="@style/poppins_regular"
                     android:layout_width="0dp"
+                    android:id="@+id/tvDropLocationClerkSign"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="8dp"

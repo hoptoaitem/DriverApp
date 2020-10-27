@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(LoginActivity.this);
 
-        String drivPrefs = getResources().getString(R.string.driversPrefs);
+        String drivPrefs = getResources().getString(R.string.driversSharedPrefs);
         SharedPreferences sharedPreferences = getSharedPreferences(drivPrefs, MODE_PRIVATE);
         boolean isUserLoggedIn = sharedPreferences.getBoolean(getString(R.string.isuserloggedin), false);
 
@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(String s) {
 
-//                String authToken = getResources().getString(R.string.driverAuthToken);
+//                String authToken = getResources().getString(R.string.api_key_token);
 //                String authtoken = sharedPreferences.getString(authToken, "null");
 
                 SharedPreferences.Editor editor = sharedPreferences.edit();

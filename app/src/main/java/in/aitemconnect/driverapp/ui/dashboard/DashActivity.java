@@ -52,9 +52,9 @@ public class DashActivity extends AppCompatActivity {
         textViewActionBarHeading.setText("Completed orders");
 
         dashboardViewModel = ViewModelProviders.of(DashActivity.this).get(DashboardViewModel.class);
-        // Get the orders
-        dashboardViewModel.getOrders(DashActivity.this);
 
+        // Get the orders // Check if there is any LOOKING_FOR_DRIVER order OR just completed orders
+        dashboardViewModel.getOrders(DashActivity.this);
 
         dashboardViewModel.requestFailed.observe(this, new Observer<String>() {
             @Override
@@ -74,10 +74,18 @@ public class DashActivity extends AppCompatActivity {
 //                    }
 
                     if (orderPojos.size() == 1) {
-                        Intent intent = new Intent(DashActivity.this, AvailableOrderActivity.class);
                         OrderPojo orderPojo = orderPojos.get(0);
-                        intent.putExtra("order_pojo", orderPojo);
-                        startActivity(intent);
+                        String orderStatus = orderPojo.getOrderStatus();
+
+                        if (orderStatus.equalsIgnoreCase("LOOKING_FOR_DRIVER")) {
+                            // To available order
+                            Intent intent = new Intent(DashActivity.this, AvailableOrderActivity.class);
+                            intent.putExtra("order_pojo", orderPojo);
+                            startActivity(intent);
+                        } else {
+                            // TODO: 27-10-2020 check for other status
+
+                        }
 
                     } else {
                         recyclerViewCompletedOrders.setLayoutManager(
@@ -95,7 +103,6 @@ public class DashActivity extends AppCompatActivity {
                 }
             }
         });
-
 
     }
 }

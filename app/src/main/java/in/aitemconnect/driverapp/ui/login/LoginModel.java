@@ -47,9 +47,9 @@ public class LoginModel {
                     LoginResultPojo loginResultPojo = response.body();
 
                     // Save auth token to local db
-                    SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string.driversPrefs), Context.MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string.driversSharedPrefs), Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(context.getResources().getString(R.string.driverAuthToken), loginResultPojo.getAuthToken());
+                    editor.putString(context.getResources().getString(R.string.api_key_token), loginResultPojo.getAuthToken());
                     editor.apply();
 
                     loginInterface.loginSuccessful();

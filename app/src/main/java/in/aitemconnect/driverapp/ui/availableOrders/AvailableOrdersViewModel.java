@@ -3,50 +3,59 @@ package in.aitemconnect.driverapp.ui.availableOrders;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class AvailableOrdersViewModel extends ViewModel implements AvailableOrdersModel.AvailableOrdersInterface {
+import in.aitemconnect.driverapp.pojo.UpdateOrderStatusPojo;
 
-    AvailableOrdersModel availableOrdersModel = new AvailableOrdersModel();
+public class AvailableOrdersViewModel extends ViewModel implements
+        AvailableOrdersModel.AvailableOrdersInterface {
 
-    void finishOrder(Context context) {
-        FinishOrder finishOrder = new FinishOrder(context);
-        finishOrder.execute();
-    }
+    AvailableOrdersModel availableOrdersModel = new AvailableOrdersModel(this);
 
-    void acceptOrders(Context context) {
-        AcceptOrders acceptOrders = new AcceptOrders(context);
+    MutableLiveData<String> orderAccepted = new MutableLiveData<>();
+    MutableLiveData<String> orderDelivered = new MutableLiveData<>();
+
+
+    void updateOrder(Context context, UpdateOrderStatusPojo updateOrderStatusPojo, String acceptOrDelivered) {
+        AcceptOrders acceptOrders = new AcceptOrders(context, updateOrderStatusPojo, acceptOrDelivered);
         acceptOrders.execute();
     }
 
 
     class AcceptOrders extends AsyncTask<Void, Void, Void> {
         Context context;
+        UpdateOrderStatusPojo updateOrderStatusPojo;
+        String acceptOrDelivered;
 
-        public AcceptOrders(Context context) {
+        public AcceptOrders(Context context, UpdateOrderStatusPojo updateOrderStatusPojo,
+                            String acceptOrDelivered) {
             this.context = context;
+            this.updateOrderStatusPojo = updateOrderStatusPojo;
+            this.acceptOrDelivered = acceptOrDelivered;
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            availableOrdersModel.acceptOrder(context);
+            availableOrdersModel.updateOrderStatus(context, updateOrderStatusPojo, acceptOrDelivered);
             return null;
         }
     }
 
 
-    class FinishOrder extends AsyncTask<Void, Void, Void> {
-        Context context;
+    @Override
+    public void orderAcceptedSuccessfully() {
+        orderAccepted.postValue("success");
+    }
 
-        public FinishOrder(Context context) {
-            this.context = context;
-        }
+    @Override
+    public void orderDeliveredSuccessfully() {
+        orderDelivered.postValue("success");
+    }
 
-        @Override
-        protected Void doInBackground(Void... voids) {
-            availableOrdersModel.finishOrder(context);
-            return null;
-        }
+    @Override
+    public void orderUpdatedFailed() {
+        orderAccepted.postValue("failed");
     }
 
 }

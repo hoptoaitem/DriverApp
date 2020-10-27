@@ -39,8 +39,8 @@ public class DashboardModel {
     void checkOrder(Context context) {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(
-                context.getString(R.string.driversPrefs), Context.MODE_PRIVATE);
-        String authToken = sharedPreferences.getString(context.getString(R.string.driverAuthToken), "null_token");
+                context.getString(R.string.driversSharedPrefs), Context.MODE_PRIVATE);
+        String authToken = sharedPreferences.getString(context.getString(R.string.api_key_token), "null_token");
 
         apiInterface.getOrders(authToken).enqueue(new Callback<ArrayList<OrderPojo>>() {
             @Override
