@@ -30,6 +30,15 @@
         android:text="No orders completed"
         android:textAlignment="center"
         android:textColor="@color/textHeadingColor"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPassword"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="64dp" />
 
 </RelativeLayout>

@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,10 @@ public class DashActivity extends AppCompatActivity {
     @BindView(R.id.mToolbar)
     Toolbar mToolbar;
 
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+
+    private static final String TAG = "DashActivity";
     DashboardViewModel dashboardViewModel;
 
     @Override
@@ -53,56 +59,84 @@ public class DashActivity extends AppCompatActivity {
 
         dashboardViewModel = ViewModelProviders.of(DashActivity.this).get(DashboardViewModel.class);
 
-        // Get the orders // Check if there is any LOOKING_FOR_DRIVER order OR just completed orders
-        dashboardViewModel.getOrders(DashActivity.this);
+        // Get the orders history
+        dashboardViewModel.getOrdersHistory(DashActivity.this);
 
         dashboardViewModel.requestFailed.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                Toast.makeText(DashActivity.this, "" + s, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onChanged: request failed");
+                progressBar.setVisibility(View.GONE);
             }
         });
 
-        dashboardViewModel.orderResult.observe(this, new Observer<ArrayList<OrderPojo>>() {
+        dashboardViewModel.historyRequestFailed.observe(this, new Observer<String>() {
             @Override
-            public void onChanged(ArrayList<OrderPojo> orderPojos) {
-                if (orderPojos.size() > 0) {
-                    // Check if there is any available order to accept
-                    // IN_CART
-                    // TODO: 23-10-2020 check status here // IN_CART
-//                    if (orderPojos.get(0).getOrderStatus()) {
-//                    }
+            public void onChanged(String s) {
+                progressBar.setVisibility(View.GONE);
 
-                    if (orderPojos.size() == 1) {
-                        OrderPojo orderPojo = orderPojos.get(0);
-                        String orderStatus = orderPojo.getOrderStatus();
+                // Show no orders found
+                tvNoOrdersFound.setText("Error! No orders found");
+                tvNoOrdersFound.setVisibility(View.VISIBLE);
+                recyclerViewCompletedOrders.setVisibility(View.GONE);
+            }
+        });
 
-                        if (orderStatus.equalsIgnoreCase("LOOKING_FOR_DRIVER")) {
-                            // To available order
-                            Intent intent = new Intent(DashActivity.this, AvailableOrderActivity.class);
-                            intent.putExtra("order_pojo", orderPojo);
-                            startActivity(intent);
+        // Any available order to accept
+        dashboardViewModel.orderResult.observe(this,
+                new Observer<ArrayList<OrderPojo>>() {
+                    @Override
+                    public void onChanged(ArrayList<OrderPojo> orderPojos) {
+
+                        if (orderPojos.size() > 0) {
+
+                            OrderPojo orderPojo = orderPojos.get(0);
+                            String orderStatus = orderPojo.getOrderStatus();
+
+                            if (orderStatus.equalsIgnoreCase("LOOKING_FOR_DRIVER")) {
+                                // To available order
+                                Intent intent = new Intent(DashActivity.this, AvailableOrderActivity.class);
+                                intent.putExtra("order_pojo", orderPojo);
+                                startActivity(intent);
+                            }
                         } else {
-                            // TODO: 27-10-2020 check for other status
-
+                            // Show no orders found
+                            tvNoOrdersFound.setVisibility(View.VISIBLE);
+                            recyclerViewCompletedOrders.setVisibility(View.GONE);
                         }
 
-                    } else {
-                        recyclerViewCompletedOrders.setLayoutManager(
-                                new LinearLayoutManager(DashActivity.this));
-
-                        CompletedOrdersAdapter completedOrdersAdapter = new CompletedOrdersAdapter(orderPojos,
-                                DashActivity.this);
-                        recyclerViewCompletedOrders.setAdapter(completedOrdersAdapter);
+                        progressBar.setVisibility(View.GONE);
                     }
+                });
 
-                } else {
-                    // Show no orders found
-                    tvNoOrdersFound.setVisibility(View.VISIBLE);
-                    recyclerViewCompletedOrders.setVisibility(View.GONE);
-                }
-            }
-        });
+        // Order history success
+        dashboardViewModel.orderHistoryResult.observe(this,
+                new Observer<ArrayList<OrderPojo>>() {
+                    @Override
+                    public void onChanged(ArrayList<OrderPojo> orderPojos) {
+
+                        progressBar.setVisibility(View.GONE);
+
+                        if (orderPojos.size() > 0) {
+                            recyclerViewCompletedOrders.setLayoutManager(
+                                    new LinearLayoutManager(DashActivity.this));
+
+                            CompletedOrdersAdapter completedOrdersAdapter =
+                                    new CompletedOrdersAdapter(orderPojos,
+                                            DashActivity.this);
+                            recyclerViewCompletedOrders.setAdapter(completedOrdersAdapter);
+
+                            recyclerViewCompletedOrders.setVisibility(View.VISIBLE);
+                            tvNoOrdersFound.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
+
+                        } else {
+                            // Show no orders found
+                            tvNoOrdersFound.setVisibility(View.VISIBLE);
+                            recyclerViewCompletedOrders.setVisibility(View.GONE);
+                        }
+                    }
+                });
 
     }
 }

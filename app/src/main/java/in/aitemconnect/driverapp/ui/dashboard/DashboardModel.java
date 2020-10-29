@@ -33,7 +33,13 @@ public class DashboardModel {
     public interface DashboardInterface {
         void orderResult(ArrayList<OrderPojo> orderPojo);
 
+        void orderRequestHistoryResult(ArrayList<OrderPojo> orderPojo);
+
         void orderRequestFailed(String message);
+
+        void orderHistoryRequestFailed(String message);
+
+
     }
 
     void checkOrder(Context context) {
@@ -57,6 +63,36 @@ public class DashboardModel {
 
             @Override
             public void onFailure(Call<ArrayList<OrderPojo>> call, Throwable t) {
+                dashboardInterface.orderRequestFailed("Request failed!");
+                Log.d(TAG, "onFailure: " + t.getMessage());
+            }
+        });
+
+
+    }
+
+    void getOrdersHistory(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(
+                context.getString(R.string.driversSharedPrefs), Context.MODE_PRIVATE);
+        String authToken = sharedPreferences.getString(context.getString(R.string.api_key_token), "null_token");
+
+        apiInterface.getOrderHistory(authToken).enqueue(new Callback<ArrayList<OrderPojo>>() {
+            @Override
+            public void onResponse(Call<ArrayList<OrderPojo>> call, Response<ArrayList<OrderPojo>> response) {
+
+                if (response != null && response.isSuccessful()) {
+                    ArrayList<OrderPojo> responseArray = response.body();
+                    dashboardInterface.orderRequestHistoryResult(responseArray);
+
+                } else {
+                    dashboardInterface.orderHistoryRequestFailed("Request failed!");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<OrderPojo>> call, Throwable t) {
+                dashboardInterface.orderHistoryRequestFailed("Request failed!");
                 Log.d(TAG, "onFailure: " + t.getMessage());
             }
         });

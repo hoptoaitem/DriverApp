@@ -3,6 +3,7 @@ package in.aitemconnect.driverapp.ui.login;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,12 +14,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.aitemconnect.driverapp.R;
+import in.aitemconnect.driverapp.pojo.order.OrderPojo;
 import in.aitemconnect.driverapp.ui.availableOrders.AvailableOrderActivity;
 import in.aitemconnect.driverapp.ui.dashboard.DashActivity;
+import in.aitemconnect.driverapp.ui.dashboard.DashboardViewModel;
+import in.aitemconnect.driverapp.ui.splash.SplashActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -35,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
     ProgressBar progressBarLogin;
 
     LoginViewModel loginViewModel;
+    DashboardViewModel dashboardViewModel;
+    private static final String TAG = "LoginActivity";
 
 //    ApiInterface apiInterface;
 
@@ -46,29 +54,28 @@ public class LoginActivity extends AppCompatActivity {
 
         String drivPrefs = getResources().getString(R.string.driversSharedPrefs);
         SharedPreferences sharedPreferences = getSharedPreferences(drivPrefs, MODE_PRIVATE);
-        boolean isUserLoggedIn = sharedPreferences.getBoolean(getString(R.string.isuserloggedin), false);
 
-        if (isUserLoggedIn) {
-            // User is logged in
-            toNewActivity();
-        }
+        loginViewModel = ViewModelProviders
+                .of(this)
+                .get(LoginViewModel.class);
 
-        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
+        dashboardViewModel = ViewModelProviders
+                .of(this)
+                .get(DashboardViewModel.class);
+
 
         loginViewModel.loginSuccess.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-
-//                String authToken = getResources().getString(R.string.api_key_token);
-//                String authtoken = sharedPreferences.getString(authToken, "null");
-
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean(getString(R.string.isuserloggedin), true);
                 editor.apply();
 
-                toNewActivity();
 
-//                startActivity(new Intent(LoginActivity.this, AvailableOrderActivity.class));
+                //Check if has any available order
+                // Get the orders // Check if there is any LOOKING_FOR_DRIVER order OR just completed orders
+                dashboardViewModel.getOrders(LoginActivity.this);
+
             }
         });
 
@@ -82,36 +89,46 @@ public class LoginActivity extends AppCompatActivity {
                 progressBarLogin.setVisibility(View.GONE);
             }
         });
-//        apiInterface = ApiClient.getRetrofit().create(ApiInterface.class);
 
-    }
 
-    /*
-        void logIn(String username, String password) {
-            LogInPojo logInPojo = new LogInPojo();
-            logInPojo.setUsername(username);
-            logInPojo.setPassword(password);
+        // No order available to accept
+        dashboardViewModel.requestFailed.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                toDashboard();
+                Log.d(TAG, "onChanged: request failled for checking available order");
+            }
+        });
 
-            apiInterface.login(logInPojo).enqueue(new Callback<LoginResultPojo>() {
-                @Override
-                public void onResponse(Call<LoginResultPojo> call, Response<LoginResultPojo> response) {
+        // There is order available to accept
+        dashboardViewModel.orderResult.observe(this, new Observer<ArrayList<OrderPojo>>() {
+            @Override
+            public void onChanged(ArrayList<OrderPojo> orderPojos) {
 
-                    if (response.isSuccessful()) {
-                        if (response != null) {
-                            LoginResultPojo loginResultPojo = response.body();
-                            String profileType = loginResultPojo.getProfileType();
-                            String username1 = loginResultPojo.getUsername();
-                        }
+                // Check if there is any available order to accept
+                if (orderPojos.size() > 0) {
+                    OrderPojo orderPojo = orderPojos.get(0);
+                    String orderStatus = orderPojo.getOrderStatus();
+
+                    if (orderStatus.equalsIgnoreCase("LOOKING_FOR_DRIVER")) {
+                        // To available order
+                        Intent intent = new Intent(LoginActivity.this,
+                                AvailableOrderActivity.class);
+                        intent.putExtra("order_pojo", orderPojo);
+                        startActivity(intent);
+
+                    } else {
+                        // To dashboard
+                        toDashboard();
                     }
-                }
 
-                @Override
-                public void onFailure(Call<LoginResultPojo> call, Throwable t) {
-
+                } else {
+                    // To dashboard
+                    toDashboard();
                 }
-            });
-        }
-    */
+            }
+        });
+    }
 
 
     @OnClick(R.id.buttonLogin)
@@ -133,17 +150,22 @@ public class LoginActivity extends AppCompatActivity {
                 buttonLogin.setVisibility(View.GONE);
                 progressBarLogin.setVisibility(View.VISIBLE);
             }
-
-            // startActivity(new Intent(this, DashActivity.class));
-
         }
     }
 
-    void toNewActivity() {
-//        Intent intent = new Intent(LoginActivity.this, AvailableOrderActivity.class);
-        Intent intent = new Intent(LoginActivity.this, DashActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+
+    void toLoginPage() {
+        Intent loginIntent = new Intent(LoginActivity.this, LoginActivity.class);
+        loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(loginIntent);
         finish();
     }
+
+    void toDashboard() {
+        Intent dash = new Intent(LoginActivity.this, DashActivity.class);
+        dash.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(dash);
+        finish();
+    }
+
 }

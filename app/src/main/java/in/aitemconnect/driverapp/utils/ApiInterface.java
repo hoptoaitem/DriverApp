@@ -29,6 +29,11 @@ public interface ApiInterface {
     @GET("/orders")
     Call<ArrayList<OrderPojo>> getOrders(@Header("api-key-token") String apiKeyToken);
 
+    // GET oder history
+    @Headers({"Content-Type: application/json"})
+    @GET("/orders/history")
+    Call<ArrayList<OrderPojo>> getOrderHistory(@Header("api-key-token") String apiKeyToken);
+
 
     // PUT request for updating the status of order
     @Headers({"Content-Type: application/json"})
