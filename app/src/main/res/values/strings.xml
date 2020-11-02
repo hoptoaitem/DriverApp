@@ -6,6 +6,7 @@
     <string name="isuserloggedin">IS_USER_LOGGED_IN</string>
 
 
+    <string name="orderDeclinedByDriver">DRIVER_DECLINED</string>
     <string name="orderAcceptedByDriver">DRIVER_ACCEPTED</string>
     <string name="orderDelivered">DELIVERED</string>
 </resources>
