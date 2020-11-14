@@ -25,11 +25,22 @@ import com.aitemconnect.driverapp.ui.dashboard.DashActivity;
 import com.aitemconnect.driverapp.ui.dashboard.DashboardViewModel;
 import com.aitemconnect.driverapp.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.installations.FirebaseInstallations;
+import com.google.firebase.installations.InstallationTokenResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class SplashActivity extends AppCompatActivity {
 
+    /**
+     * 1. device id is changing every time app opened
+     * <p>
+     * 2. postman silent notification  "error": "InvalidRegistration"
+     */
     DashboardViewModel dashboardViewModel;
     private static final String TAG = "SplashActivity";
 
@@ -37,12 +48,9 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        Log.d(TAG, "onCreate: calleddd");
         dashboardViewModel = ViewModelProviders
                 .of(SplashActivity.this)
                 .get(DashboardViewModel.class);
-
-
 
         // Create channel for firebase notifications
         createNotificationChannel();
@@ -52,11 +60,11 @@ public class SplashActivity extends AppCompatActivity {
         String drivPrefs = getResources().getString(R.string.driversSharedPrefs);
         SharedPreferences sharedPreferences = getSharedPreferences(drivPrefs, MODE_PRIVATE);
         boolean isUserLoggedIn = sharedPreferences.getBoolean(getString(R.string.isuserloggedin), false);
-        String tokennn = sharedPreferences.getString(getString(R.string.api_key_token), "null");
-        String deviceId = sharedPreferences.getString("DeviceToken", "empty");
+        String authKey = sharedPreferences.getString(getString(R.string.api_key_token), "null");
+        String deviceTokene = sharedPreferences.getString(getString(R.string.deviceToken), "empty");
 
-        Log.d(TAG, "onCreate: tokennn " + tokennn);
-        Log.d(TAG, "onCreate: deviceId " + deviceId);
+        Log.d(TAG, "onCreate: authKey " + authKey);
+        Log.d(TAG, "onCreate: deviceTokene is " + deviceTokene);
 
         if (isUserLoggedIn) {
             // User is logged in
@@ -64,7 +72,7 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void onChanged(String s) {
                     toDashboard();
-                    Log.d(TAG, "onChanged: request failled for checking available order");
+//                    Log.d(TAG, "onChanged: request failled for checking available order");
 //                    Toast.makeText(DashActivity.this, "" + s, Toast.LENGTH_SHORT).show();
                 }
             });
@@ -112,6 +120,45 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }
         }, 2 * 1000);
+
+
+        // get the device token
+        FirebaseApp.initializeApp(this);
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String token = instanceIdResult.getToken();
+                Log.d(TAG, "onSuccess: real token is: " + token);
+
+                //Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                //shareIntent.setType("text/plain");
+                //shareIntent.putExtra(Intent.EXTRA_TEXT,"Your score and Some extra text");
+                //shareIntent.putExtra(Intent.EXTRA_SUBJECT, "The title");
+                //startActivity(Intent.createChooser(shareIntent, "Share..."));
+
+                /*
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, token);
+                startActivity(Intent.createChooser(intent, "shareeee"));*/
+
+            }
+        });
+
+        FirebaseInstallations.getInstance().getToken(false)
+                .addOnSuccessListener(new OnSuccessListener<InstallationTokenResult>() {
+                    @Override
+                    public void onSuccess(InstallationTokenResult installationTokenResult) {
+                        String token = installationTokenResult.getToken();
+                        if (token != null || !token.isEmpty()) {
+//                    Toast.makeText(LoginActivity.this, "token ere " + token, Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "onSuccess: real token 2: " + token);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString(getString(R.string.deviceToken), token);
+                            editor.apply();
+                        }
+                    }
+                });
 
     }
 

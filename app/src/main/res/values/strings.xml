@@ -9,4 +9,5 @@
     <string name="orderDeclinedByDriver">DRIVER_DECLINED</string>
     <string name="orderAcceptedByDriver">DRIVER_ACCEPTED</string>
     <string name="orderDelivered">DELIVERED</string>
+    <string name="deviceToken">DeviceToken</string>
 </resources>

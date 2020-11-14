@@ -9,6 +9,7 @@ import com.aitemconnect.driverapp.pojo.LogInPojo;
 import com.aitemconnect.driverapp.pojo.LoginResultPojo;
 import com.aitemconnect.driverapp.utils.ApiClient;
 import com.aitemconnect.driverapp.utils.ApiInterface;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,9 +36,17 @@ public class LoginModel {
 
 
     public void loginRequest(String userName, String password, Context context) {
+        SharedPreferences sharedPreferences = context
+                .getSharedPreferences(context.getResources()
+                        .getString(R.string.driversSharedPrefs), Context.MODE_PRIVATE);
+        String deviceToken = sharedPreferences
+                .getString(context.getResources().getString(R.string.deviceToken), "null");
+
+
         LogInPojo logInPojo = new LogInPojo();
         logInPojo.setUsername(userName);
         logInPojo.setPassword(password);
+        logInPojo.setDeviceId(deviceToken);
 
         apiInterface.loginRequest(logInPojo).enqueue(new Callback<LoginResultPojo>() {
             @Override
@@ -46,7 +55,6 @@ public class LoginModel {
                     LoginResultPojo loginResultPojo = response.body();
 
                     // Save auth token to local db
-                    SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string.driversSharedPrefs), Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString(context.getResources().getString(R.string.api_key_token), loginResultPojo.getAuthToken());
                     editor.apply();

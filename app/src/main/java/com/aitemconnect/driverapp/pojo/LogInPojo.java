@@ -6,6 +6,11 @@ import com.google.gson.annotations.SerializedName;
 public class LogInPojo {
 
     @Expose
+    @SerializedName("deviceId")
+    private String deviceId;
+
+
+    @Expose
     @SerializedName("username")
     private String username;
 
@@ -13,6 +18,13 @@ public class LogInPojo {
     @SerializedName("password")
     private String password;
 
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
 
     public String getUsername() {
         return username;

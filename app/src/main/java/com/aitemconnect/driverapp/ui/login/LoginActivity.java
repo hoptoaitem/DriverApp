@@ -19,11 +19,17 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.aitemconnect.driverapp.R;
 import com.aitemconnect.driverapp.pojo.order.OrderPojo;
 import com.aitemconnect.driverapp.ui.availableOrders.AvailableOrderActivity;
 import com.aitemconnect.driverapp.ui.dashboard.DashActivity;
 import com.aitemconnect.driverapp.ui.dashboard.DashboardViewModel;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.installations.FirebaseInstallations;
+import com.google.firebase.installations.InstallationTokenResult;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -53,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
 
         String drivPrefs = getResources().getString(R.string.driversSharedPrefs);
         SharedPreferences sharedPreferences = getSharedPreferences(drivPrefs, MODE_PRIVATE);
+
 
         loginViewModel = ViewModelProviders
                 .of(this)
@@ -139,10 +146,18 @@ public class LoginActivity extends AppCompatActivity {
             String userName = etUsername.getText().toString().trim();
             String password = etPassword.getText().toString().trim();
 
+            String drivPrefs = getResources().getString(R.string.driversSharedPrefs);
+            SharedPreferences sharedPreferences = getSharedPreferences(drivPrefs, MODE_PRIVATE);
+
+            String deviceToken = sharedPreferences
+                    .getString(getResources().getString(R.string.deviceToken), "null");
+
             if (userName == "" || userName.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "Please enter username", Toast.LENGTH_SHORT).show();
             } else if (password == "" || password.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "Please enter password", Toast.LENGTH_SHORT).show();
+            } else if (deviceToken == null || deviceToken == "" || deviceToken.isEmpty()) {
+                Toast.makeText(LoginActivity.this, "No token found, Please restart the app", Toast.LENGTH_SHORT).show();
             } else {
                 // Login
                 loginViewModel.loginVM(userName, password, LoginActivity.this);
