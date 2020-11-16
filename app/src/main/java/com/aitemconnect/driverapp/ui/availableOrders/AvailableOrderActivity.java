@@ -138,7 +138,7 @@ public class AvailableOrderActivity extends AppCompatActivity {
 
     OrderPojo order_pojo;
     AvailableOrdersViewModel availableOrdersViewModel;
-
+    CountDownTimer countDownTimer;
     ProgressDialog progressDialog;
 
     @Override
@@ -155,7 +155,7 @@ public class AvailableOrderActivity extends AppCompatActivity {
 
         availableOrdersViewModel = ViewModelProviders.of(this).get(AvailableOrdersViewModel.class);
 
-        // ORDER ACCEPTED
+        // ORDER DECLINED
         availableOrdersViewModel.orderDeclined.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String string) {
@@ -169,7 +169,8 @@ public class AvailableOrderActivity extends AppCompatActivity {
         });
 
         // All failed response
-        // ORDER ACCEPTED
+        // and
+        // ORDER ACCEPTED here
         availableOrdersViewModel.orderAccepted.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String string) {
@@ -215,26 +216,28 @@ public class AvailableOrderActivity extends AppCompatActivity {
 
         setTexts(order_pojo);
 
+        // If order is already accepted
+        String orderStatus = order_pojo.getOrderStatus();
+        if (orderStatus.equalsIgnoreCase(getString(R.string.orderAcceptedByDriver))) {
+            updateUiTillAccept();
+        } else {
+            // If order is not accepted
+            countDownTimer = new CountDownTimer(timeToCount, 125) {
 
-        Toast.makeText(this, "id " + id, Toast.LENGTH_LONG).show();
+                @Override
+                public void onTick(long remainingTimeInMillisec) {
+                    long secondsRemaining = remainingTimeInMillisec / 1000;
+                    tvRemainingTime.setText(secondsRemaining + "");
+                }
 
-
-        CountDownTimer countDownTimer = new CountDownTimer(timeToCount, 125) {
-
-            @Override
-            public void onTick(long remainingTimeInMillisec) {
-                long secondsRemaining = remainingTimeInMillisec / 1000;
-                tvRemainingTime.setText(secondsRemaining + "");
-            }
-
-            @Override
-            public void onFinish() {
-                tvRemainingTime.setText("0");
-                toDashboard();
-
-            }
-        };
-        countDownTimer.start();
+                @Override
+                public void onFinish() {
+                    tvRemainingTime.setText("0");
+                    toDashboard();
+                }
+            };
+            countDownTimer.start();
+        }
     }
 
     private void toDashboard() {
@@ -243,62 +246,6 @@ public class AvailableOrderActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
-    }
-
-    void setTexts(OrderPojo order_pojo) {
-        String order_pojoId = order_pojo.getId();
-
-        Origin origin1 = order_pojo.getOrigin();
-
-        String addressNameStoreName = origin1.getAddressName();
-
-        String streetAddress = origin1.getStreetAddress();
-        String streetAddress1 = origin1.getStreetAddress1();
-        String city = origin1.getCity();
-        String state = origin1.getState();
-        String zip = origin1.getZip();
-
-        Contact contact = order_pojo.getContact();
-        Retailor retailor = contact.getRetailor();
-        String retailorPhone = retailor.getPhone();
-
-        String finalAddress = streetAddress + " " + streetAddress1 + " " + city + " " + state + " " + zip;
-
-        tvOrderIdOrder.setText("" + order_pojoId);
-        tvOrderIdAccept.setText("" + order_pojoId);
-        tvOrderIdClerkSign.setText("" + order_pojoId);
-
-        tvStoreNameOrder.setText("" + addressNameStoreName);
-        tvStoreNameAccept.setText("" + addressNameStoreName);
-        tvStoreNameClerkSign.setText("" + addressNameStoreName);
-
-        tvOriginAddressOrder.setText("" + finalAddress);
-        tvOriginAddressAccept.setText("" + finalAddress);
-        tvOriginAddressClerkSign.setText("" + finalAddress);
-
-        tvMobileOrder.setText("" + retailorPhone);
-        tvMobileAccept.setText("" + retailorPhone);
-        tvMobileClerkSign.setText("" + retailorPhone);
-
-        Destination destination = order_pojo.getDestination();
-        String streetAddressD = destination.getStreetAddress();
-        String streetAddress1D = destination.getStreetAddress1();
-        String cityD = destination.getCity();
-        String stateD = destination.getState();
-        String zipD = destination.getZip();
-
-        String finalAddressDest = streetAddressD + " " + streetAddress1D + " " + cityD + " " + stateD + " " + zipD;
-
-        tvDropLocationClerkSign.setText("" + finalAddressDest);
-
-
-        Origin origin = order_pojo.getOrigin();
-        List<Item> items = order_pojo.getItems();
-
-        String id = order_pojo.getId();
-        String createdAt = order_pojo.getCreatedAt();
-
-        Toast.makeText(AvailableOrderActivity.this, "id " + id, Toast.LENGTH_LONG).show();
     }
 
     @OnClick({R.id.buttonAccept, R.id.buttonNextOnAccept,
@@ -328,6 +275,9 @@ public class AvailableOrderActivity extends AppCompatActivity {
                 progressDialog.setMessage("Please wait...");
                 progressDialog.show();
 
+                // Cancel the countdown timer
+                cancelCountDownTimer();
+
                 break;
 
             case R.id.buttonAccept:
@@ -344,6 +294,10 @@ public class AvailableOrderActivity extends AppCompatActivity {
 
                 progressDialog.setMessage("Please wait...");
                 progressDialog.show();
+
+                // Cancel the countdown timer
+                cancelCountDownTimer();
+
                 break;
 
 
@@ -404,12 +358,76 @@ public class AvailableOrderActivity extends AppCompatActivity {
         rlAcceptedParent.setVisibility(View.VISIBLE);
     }
 
+
+    void setTexts(OrderPojo order_pojo) {
+        String order_pojoId = order_pojo.getId();
+
+        Origin origin1 = order_pojo.getOrigin();
+
+        String addressNameStoreName = origin1.getAddressName();
+
+        String streetAddress = origin1.getStreetAddress();
+        String streetAddress1 = origin1.getStreetAddress1();
+        String city = origin1.getCity();
+        String state = origin1.getState();
+        String zip = origin1.getZip();
+
+        Contact contact = order_pojo.getContact();
+        Retailor retailor = contact.getRetailor();
+        String retailorPhone = retailor.getPhone();
+
+        String finalAddress = streetAddress + " " + streetAddress1 + " " + city + " " + state + " " + zip;
+
+        tvOrderIdOrder.setText("" + order_pojoId);
+        tvOrderIdAccept.setText("" + order_pojoId);
+        tvOrderIdClerkSign.setText("" + order_pojoId);
+
+        tvStoreNameOrder.setText("" + addressNameStoreName);
+        tvStoreNameAccept.setText("" + addressNameStoreName);
+        tvStoreNameClerkSign.setText("" + addressNameStoreName);
+
+        tvOriginAddressOrder.setText("" + finalAddress);
+        tvOriginAddressAccept.setText("" + finalAddress);
+        tvOriginAddressClerkSign.setText("" + finalAddress);
+
+        tvMobileOrder.setText("" + retailorPhone);
+        tvMobileAccept.setText("" + retailorPhone);
+        tvMobileClerkSign.setText("" + retailorPhone);
+
+        Destination destination = order_pojo.getDestination();
+        String streetAddressD = destination.getStreetAddress();
+        String streetAddress1D = destination.getStreetAddress1();
+        String cityD = destination.getCity();
+        String stateD = destination.getState();
+        String zipD = destination.getZip();
+
+        String finalAddressDest = streetAddressD + " " + streetAddress1D + " " + cityD + " " + stateD + " " + zipD;
+
+        tvDropLocationClerkSign.setText("" + finalAddressDest);
+
+
+        Origin origin = order_pojo.getOrigin();
+        List<Item> items = order_pojo.getItems();
+
+        String id = order_pojo.getId();
+        String createdAt = order_pojo.getCreatedAt();
+
+//        Toast.makeText(AvailableOrderActivity.this, "id " + id, Toast.LENGTH_LONG).show();
+    }
+
+
     @Override
     protected void onPause() {
         super.onPause();
         if (progressDialog != null) {
             progressDialog.cancel();
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        cancelCountDownTimer();
     }
 
     private void updateUiTillClerkSign() {
@@ -431,6 +449,12 @@ public class AvailableOrderActivity extends AppCompatActivity {
 
         rlClerkSignParent.setVisibility(View.GONE);
         rlShoppersSignParent.setVisibility(View.VISIBLE);
+    }
+
+    private void cancelCountDownTimer() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
     }
 }
 

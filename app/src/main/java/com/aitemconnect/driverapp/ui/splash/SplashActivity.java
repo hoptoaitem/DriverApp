@@ -86,12 +86,19 @@ public class SplashActivity extends AppCompatActivity {
                         OrderPojo orderPojo = orderPojos.get(0);
                         String orderStatus = orderPojo.getOrderStatus();
 
-                        if (orderStatus.equalsIgnoreCase("LOOKING_FOR_DRIVER")) {
+                        if (orderStatus.equalsIgnoreCase(getString(R.string.status_lookingForDriver)) ||
+                                orderStatus.equalsIgnoreCase(getString(R.string.orderAcceptedByDriver))) {
                             // To available order
-                            Intent intent = new Intent(SplashActivity.this,
-                                    AvailableOrderActivity.class);
-                            intent.putExtra("order_pojo", orderPojo);
-                            startActivity(intent);
+                            try {
+                                Intent intent = new Intent(SplashActivity.this,
+                                        AvailableOrderActivity.class);
+                                intent.putExtra("order_pojo", orderPojo);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                finish();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
 
                         } else {
                             // To dashboard
@@ -124,17 +131,21 @@ public class SplashActivity extends AppCompatActivity {
 
         // get the device token
         FirebaseApp.initializeApp(this);
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                String token = instanceIdResult.getToken();
-                Log.d(TAG, "onSuccess: real token is: " + token);
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+                    @Override
+                    public void onSuccess(InstanceIdResult instanceIdResult) {
+                        String token = instanceIdResult.getToken();
+                        Log.d(TAG, "onSuccess: real token is: " + token);
 
-                //Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                //shareIntent.setType("text/plain");
-                //shareIntent.putExtra(Intent.EXTRA_TEXT,"Your score and Some extra text");
-                //shareIntent.putExtra(Intent.EXTRA_SUBJECT, "The title");
-                //startActivity(Intent.createChooser(shareIntent, "Share..."));
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(getString(R.string.deviceToken), token);
+                        editor.apply();
+                        //Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                        //shareIntent.setType("text/plain");
+                        //shareIntent.putExtra(Intent.EXTRA_TEXT,"Your score and Some extra text");
+                        //shareIntent.putExtra(Intent.EXTRA_SUBJECT, "The title");
+                        //startActivity(Intent.createChooser(shareIntent, "Share..."));
 
                 /*
                 Intent intent = new Intent(Intent.ACTION_SEND);
@@ -142,8 +153,8 @@ public class SplashActivity extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_TEXT, token);
                 startActivity(Intent.createChooser(intent, "shareeee"));*/
 
-            }
-        });
+                    }
+                });
 
         FirebaseInstallations.getInstance().getToken(false)
                 .addOnSuccessListener(new OnSuccessListener<InstallationTokenResult>() {
@@ -153,9 +164,7 @@ public class SplashActivity extends AppCompatActivity {
                         if (token != null || !token.isEmpty()) {
 //                    Toast.makeText(LoginActivity.this, "token ere " + token, Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "onSuccess: real token 2: " + token);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString(getString(R.string.deviceToken), token);
-                            editor.apply();
+
                         }
                     }
                 });

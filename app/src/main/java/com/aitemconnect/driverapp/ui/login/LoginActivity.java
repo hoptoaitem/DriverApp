@@ -121,7 +121,10 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(LoginActivity.this,
                                 AvailableOrderActivity.class);
                         intent.putExtra("order_pojo", orderPojo);
+
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
+                        finish();
 
                     } else {
                         // To dashboard

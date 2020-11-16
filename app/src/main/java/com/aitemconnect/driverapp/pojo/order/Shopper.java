@@ -3,7 +3,9 @@ package com.aitemconnect.driverapp.pojo.order;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Shopper {
+import java.io.Serializable;
+
+public class Shopper implements Serializable {
 
     @SerializedName("email")
     @Expose

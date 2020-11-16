@@ -15,9 +15,12 @@ public class OrderPojo implements Serializable {
     @SerializedName("createdBy")
     @Expose
     private String createdBy;
-    @SerializedName("destination")
+
+    @SerializedName("customerAddress")
     @Expose
     private Destination destination;
+
+
     @SerializedName("id")
     @Expose
     private String id;
@@ -36,7 +39,8 @@ public class OrderPojo implements Serializable {
     @SerializedName("orderStatus")
     @Expose
     private String orderStatus;
-    @SerializedName("origin")
+
+    @SerializedName("shopAddress")
     @Expose
     private Origin origin;
 

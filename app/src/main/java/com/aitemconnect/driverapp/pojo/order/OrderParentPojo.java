@@ -2,9 +2,10 @@ package com.aitemconnect.driverapp.pojo.order;
 
 import com.google.gson.annotations.Expose;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class OrderParentPojo {
+public class OrderParentPojo  implements Serializable {
 
     @Expose
     ArrayList<OrderPojo> order;

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.aitemconnect.driverapp.R;
 import com.aitemconnect.driverapp.pojo.order.OrderPojo;
 
@@ -40,7 +41,12 @@ public class CompletedOrdersAdapter extends RecyclerView.Adapter<CompletedOrders
         String id = arrayList.get(position).getId();
 
         holder.tvOrderId.setText(id);
-        holder.tvDate.setText(createdAt);
+        if (createdAt == null || createdAt.isEmpty() || createdAt.equalsIgnoreCase("")) {
+            holder.tvDate.setText("-");
+        } else {
+            holder.tvDate.setText(createdAt);
+        }
+
     }
 
     @Override
