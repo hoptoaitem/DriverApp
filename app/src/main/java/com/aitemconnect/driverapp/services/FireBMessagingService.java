@@ -5,12 +5,15 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.AudioAttributes;
 import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
@@ -58,6 +61,7 @@ public class FireBMessagingService extends FirebaseMessagingService {
 //        Log.e("mnotificatin", "" + notification.getBody());
 
 //        showNotification(notification, data);
+
         showNotification(remoteMessage.getNotification().getTitle(),
                 remoteMessage.getNotification().getBody());
     }
@@ -119,15 +123,50 @@ public class FireBMessagingService extends FirebaseMessagingService {
 
 
     public void showNotification(String title, String message) {
+
+        String CHANNEL_ID = "878";
+
+        Uri soundUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
+                + getApplicationContext().getPackageName() + "/" + R.raw.notification_bell);
+
+        NotificationManager notificationManager = (NotificationManager) getApplicationContext()
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // For api 26+
+        NotificationChannel notificationChannel = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationChannel = new NotificationChannel(CHANNEL_ID, "channelName", NotificationManager.IMPORTANCE_MAX);
+            notificationChannel.setLightColor(Color.GREEN);
+            notificationChannel.enableLights(true);
+            notificationChannel.setDescription("Notification for driver");
+
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                    .build();
+
+            notificationChannel.setSound(soundUri, audioAttributes);
+
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+        }
+
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,
-                "MyNotification")
+                CHANNEL_ID)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setAutoCancel(true)
+                .setVibrate(new long[]{0, 500, 1000})
+                .setDefaults(Notification.DEFAULT_LIGHTS)
+                .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + getApplicationContext().getPackageName() + "/" + R.raw.notification_bell))
                 .setSmallIcon(R.mipmap.ic_aitem_foreground);
 
-        NotificationManagerCompat notificationManagerCompat =
-                NotificationManagerCompat.from(this);
-        notificationManagerCompat.notify(878, builder.build());
+        notificationManager.notify(878, builder.build());
+//        NotificationManagerCompat notificationManagerCompat =
+//                NotificationManagerCompat.from(this);
+//
+//        notificationManagerCompat.notify(878, builder.build());
     }
 }

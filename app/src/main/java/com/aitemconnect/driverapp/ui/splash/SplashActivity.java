@@ -38,8 +38,8 @@ public class SplashActivity extends AppCompatActivity {
 
     /**
      * 1. device id is changing every time app opened
-     * <p>
-     * 2. postman silent notification  "error": "InvalidRegistration"
+     *
+     *
      */
     DashboardViewModel dashboardViewModel;
     private static final String TAG = "SplashActivity";
@@ -135,12 +135,14 @@ public class SplashActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
                     @Override
                     public void onSuccess(InstanceIdResult instanceIdResult) {
+                        // This is original token to send to server For FIREBASE...
                         String token = instanceIdResult.getToken();
                         Log.d(TAG, "onSuccess: real token is: " + token);
 
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString(getString(R.string.deviceToken), token);
                         editor.apply();
+
                         //Intent shareIntent = new Intent(Intent.ACTION_SEND);
                         //shareIntent.setType("text/plain");
                         //shareIntent.putExtra(Intent.EXTRA_TEXT,"Your score and Some extra text");
@@ -164,6 +166,7 @@ public class SplashActivity extends AppCompatActivity {
                         if (token != null || !token.isEmpty()) {
 //                    Toast.makeText(LoginActivity.this, "token ere " + token, Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "onSuccess: real token 2: " + token);
+
 
                         }
                     }
