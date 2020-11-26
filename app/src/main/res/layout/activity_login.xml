@@ -30,10 +30,10 @@
 
                 <ImageView
                     android:id="@+id/imgLogo"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/icon_itemconnect" />
+                    android:src="@mipmap/hopto_foreground" />
 
 
                 <EditText
@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/imgLogo"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/background_et"
                     android:gravity="start"
                     android:hint="Username"
@@ -103,7 +103,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:includeFontPadding="false"
-                android:text="© 2020 AItemConnect"
+                android:text="© 2020 HopTo"
                 android:textAlignment="center"
                 android:textSize="12sp"
                 android:visibility="gone" />

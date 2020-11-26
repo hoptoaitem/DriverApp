@@ -4,11 +4,16 @@
 <!--    <color name="colorPrimaryDark">#0B8ABD</color>-->
 <!--    <color name="colorAccent">#03DAC5</color>-->
 
-    <color name="colorPrimary">#6C9AF4</color>
-    <color name="colorPrimaryDark">#6C9AF4</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#F89422</color>
+    <color name="colorPrimaryDark">#F89422</color>
+    <color name="colorAccent">#A6A6A6</color>
 
-    <color name="buttonColor">#8BB0F6</color>
+<!--    <color name="colorPrimary">#6C9AF4</color>-->
+<!--    <color name="colorPrimaryDark">#6C9AF4</color>-->
+<!--    <color name="colorAccent">#03DAC5</color>-->
+
+    <color name="buttonColor">#F89422</color>
+<!--    <color name="buttonColor">#8BB0F6</color>-->
 
 
 <!--    <color name="colorPrimary">#6200EE</color>-->

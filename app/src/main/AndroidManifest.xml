@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aitemconnect.driverapp">
+    package="com.hopto.driverapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -8,28 +8,28 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_aitem_foreground"
+        android:icon="@mipmap/hopto_foreground"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_aitem_foreground"
+        android:roundIcon="@mipmap/hopto_foreground"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name="com.aitemconnect.driverapp.ui.splash.SplashActivity">
+        <activity android:name="com.hopto.driverapp.ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.aitemconnect.driverapp.ui.dashboard.DashActivity" />
-        <activity android:name="com.aitemconnect.driverapp.ui.availableOrders.AvailableOrderActivity" />
+        <activity android:name="com.hopto.driverapp.ui.dashboard.DashActivity" />
+        <activity android:name="com.hopto.driverapp.ui.availableOrders.AvailableOrderActivity" />
         <activity
-            android:name="com.aitemconnect.driverapp.ui.login.LoginActivity"
+            android:name="com.hopto.driverapp.ui.login.LoginActivity"
             android:windowSoftInputMode="stateAlwaysHidden"></activity>
 
 
-        <service android:name=".services.FireBMessagingService">
+        <service android:name="com.hopto.driverapp.services.FireBMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

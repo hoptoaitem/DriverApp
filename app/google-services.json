@@ -42,6 +42,43 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180036460125:android:47a9e58ac2dd5c2dddf7b4",
+        "android_client_info": {
+          "package_name": "com.hopto.driverapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "180036460125-r3g8fft8fg5q51gfjd6qe3f403eskman.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hopto.driverapp",
+            "certificate_hash": "5062cac2f429d2a11bfd35ec26c072a92c19fc3b"
+          }
+        },
+        {
+          "client_id": "180036460125-sifeu3jl6ugreihhjijoougkqtk7u911.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBJ74Ys8Cvucgbyg90k7kVfi9hVWGXNik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "180036460125-sifeu3jl6ugreihhjijoougkqtk7u911.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
