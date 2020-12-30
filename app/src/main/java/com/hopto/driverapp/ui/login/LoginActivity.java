@@ -20,6 +20,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.hopto.driverapp.R;
 import com.hopto.driverapp.pojo.order.OrderPojo;
 import com.hopto.driverapp.ui.availableOrders.AvailableOrderActivity;
@@ -147,20 +150,32 @@ public class LoginActivity extends AppCompatActivity {
             String drivPrefs = getResources().getString(R.string.driversSharedPrefs);
             SharedPreferences sharedPreferences = getSharedPreferences(drivPrefs, MODE_PRIVATE);
 
-            String deviceToken = sharedPreferences
-                    .getString(getResources().getString(R.string.deviceToken), "null");
+//            String deviceToken = sharedPreferences
+//                    .getString(getResources().getString(R.string.deviceToken), "null");
 
             if (userName == "" || userName.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "Please enter username", Toast.LENGTH_SHORT).show();
             } else if (password == "" || password.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "Please enter password", Toast.LENGTH_SHORT).show();
-            } else if (deviceToken == "null" || deviceToken == "" || deviceToken.isEmpty()) {
-                Toast.makeText(LoginActivity.this, "No token found, Please restart the app", Toast.LENGTH_SHORT).show();
+//            } else if (deviceToken == "null" || deviceToken == "" || deviceToken.isEmpty()) {
+//                Toast.makeText(LoginActivity.this, "No token found, Please restart the app", Toast.LENGTH_SHORT).show();
             } else {
                 // Login
-                loginViewModel.loginVM(userName, password, LoginActivity.this);
                 buttonLogin.setVisibility(View.GONE);
                 progressBarLogin.setVisibility(View.VISIBLE);
+                FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+                    @Override
+                    public void onSuccess(InstanceIdResult instanceIdResult) {
+                        // This is original token to send to server For FIREBASE...
+                        String token = instanceIdResult.getToken();
+                        Log.d(TAG, "onSuccess: real token is: " + token);
+
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(getString(R.string.deviceToken), token);
+                        editor.apply();
+                        loginViewModel.loginVM(userName, password, LoginActivity.this);
+                    }
+                });
             }
         }
     }

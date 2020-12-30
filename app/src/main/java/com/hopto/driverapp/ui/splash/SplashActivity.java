@@ -129,46 +129,46 @@ public class SplashActivity extends AppCompatActivity {
 
         // get the device token
         FirebaseApp.initializeApp(this);
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
-                    @Override
-                    public void onSuccess(InstanceIdResult instanceIdResult) {
-                        // This is original token to send to server For FIREBASE...
-                        String token = instanceIdResult.getToken();
-                        Log.d(TAG, "onSuccess: real token is: " + token);
-
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(getString(R.string.deviceToken), token);
-                        editor.apply();
-
-                        //Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        //shareIntent.setType("text/plain");
-                        //shareIntent.putExtra(Intent.EXTRA_TEXT,"Your score and Some extra text");
-                        //shareIntent.putExtra(Intent.EXTRA_SUBJECT, "The title");
-                        //startActivity(Intent.createChooser(shareIntent, "Share..."));
-
-                /*
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, token);
-                startActivity(Intent.createChooser(intent, "shareeee"));*/
-
-                    }
-                });
-
-        FirebaseInstallations.getInstance().getToken(false)
-                .addOnSuccessListener(new OnSuccessListener<InstallationTokenResult>() {
-                    @Override
-                    public void onSuccess(InstallationTokenResult installationTokenResult) {
-                        String token = installationTokenResult.getToken();
-                        if (token != null || !token.isEmpty()) {
-//                    Toast.makeText(LoginActivity.this, "token ere " + token, Toast.LENGTH_SHORT).show();
-                            Log.d(TAG, "onSuccess: real token 2: " + token);
-
-
-                        }
-                    }
-                });
+//        FirebaseInstanceId.getInstance().getInstanceId()
+//                .addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+//                    @Override
+//                    public void onSuccess(InstanceIdResult instanceIdResult) {
+//                        // This is original token to send to server For FIREBASE...
+//                        String token = instanceIdResult.getToken();
+//                        Log.d(TAG, "onSuccess: real token is: " + token);
+//
+//                        SharedPreferences.Editor editor = sharedPreferences.edit();
+//                        editor.putString(getString(R.string.deviceToken), token);
+//                        editor.apply();
+//
+//                        //Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//                        //shareIntent.setType("text/plain");
+//                        //shareIntent.putExtra(Intent.EXTRA_TEXT,"Your score and Some extra text");
+//                        //shareIntent.putExtra(Intent.EXTRA_SUBJECT, "The title");
+//                        //startActivity(Intent.createChooser(shareIntent, "Share..."));
+//
+//                /*
+//                Intent intent = new Intent(Intent.ACTION_SEND);
+//                intent.setType("text/plain");
+//                intent.putExtra(Intent.EXTRA_TEXT, token);
+//                startActivity(Intent.createChooser(intent, "shareeee"));*/
+//
+//                    }
+//                });
+//
+//        FirebaseInstallations.getInstance().getToken(false)
+//                .addOnSuccessListener(new OnSuccessListener<InstallationTokenResult>() {
+//                    @Override
+//                    public void onSuccess(InstallationTokenResult installationTokenResult) {
+//                        String token = installationTokenResult.getToken();
+//                        if (token != null || !token.isEmpty()) {
+////                    Toast.makeText(LoginActivity.this, "token ere " + token, Toast.LENGTH_SHORT).show();
+//                            Log.d(TAG, "onSuccess: real token 2: " + token);
+//
+//
+//                        }
+//                    }
+//                });
 
     }
 
