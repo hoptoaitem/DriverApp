@@ -117,7 +117,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 if (isUserLoggedIn) {
 //                    Toast.makeText(SplashActivity.this, "checking for available orders", Toast.LENGTH_SHORT).show();
-                    // Get the orders // Check if there is any LOOKING_FOR_DRIVER order OR just completed orders
+                    // Get the orders // Check if there is any WAITING_ACCEPTANCE_FROM_DRIVER order OR just completed orders
                     dashboardViewModel.getOrders(SplashActivity.this);
                 } else {
                     // To login page

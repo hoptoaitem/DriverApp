@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 //Check if has any available order
-                // Get the orders // Check if there is any LOOKING_FOR_DRIVER order OR just completed orders
+                // Get the orders // Check if there is any WAITING_ACCEPTANCE_FROM_DRIVER order OR just completed orders
                 dashboardViewModel.getOrders(LoginActivity.this);
 
             }
@@ -111,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                     OrderPojo orderPojo = orderPojos.get(0);
                     String orderStatus = orderPojo.getOrderStatus();
 
-                    if (orderStatus.equalsIgnoreCase("LOOKING_FOR_DRIVER")) {
+                    if (orderStatus.equalsIgnoreCase("WAITING_ACCEPTANCE_FROM_DRIVER")) {
                         // To available order
                         Intent intent = new Intent(LoginActivity.this,
                                 AvailableOrderActivity.class);
@@ -154,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Please enter username", Toast.LENGTH_SHORT).show();
             } else if (password == "" || password.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "Please enter password", Toast.LENGTH_SHORT).show();
-            } else if (deviceToken == null || deviceToken == "" || deviceToken.isEmpty()) {
+            } else if (deviceToken == "null" || deviceToken == "" || deviceToken.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "No token found, Please restart the app", Toast.LENGTH_SHORT).show();
             } else {
                 // Login

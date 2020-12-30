@@ -90,7 +90,7 @@ public class DashActivity extends AppCompatActivity {
                             OrderPojo orderPojo = orderPojos.get(0);
                             String orderStatus = orderPojo.getOrderStatus();
 
-                            if (orderStatus.equalsIgnoreCase("LOOKING_FOR_DRIVER")) {
+                            if (orderStatus.equalsIgnoreCase("WAITING_ACCEPTANCE_FROM_DRIVER")) {
                                 // To available order
                                 Intent intent = new Intent(DashActivity.this, AvailableOrderActivity.class);
                                 intent.putExtra("order_pojo", orderPojo);
